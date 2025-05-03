@@ -80,7 +80,7 @@
             display: block;
             text-align: center;
             margin-top: 10px;
-            color: #007bff;
+            color:rgb(212, 168, 87);
             text-decoration: none;
         }
 
