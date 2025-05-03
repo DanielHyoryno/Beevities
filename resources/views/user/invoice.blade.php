@@ -4,17 +4,32 @@
 
 @section('content')
 <div class="container mt-4" id="invoice">
-    <div class="text-center">
+
+    <div class="text-center mb-4">
+        <img src="{{ asset('images/logo.png') }}" alt="Logo Toko" class="invoice-logo">
         <h2>Faktur Pembelian</h2>
-        <hr>
+        <p style="margin: 0;">Beevities Store</p>
+        <p style="margin: 0;">www.beevities.com | +62 857-5440-3899</p>
+        <hr style="border-top: 2px solid #333;">
     </div>
-    <div class="mb-4">
-        <p><strong>Nomor Faktur:</strong> {{ $invoice->invoice_number }}</p>
-        <p><strong>Nama Pelanggan:</strong> {{ Auth::user()->name }}</p>
-        <p><strong>Alamat Pengiriman:</strong> {{ $invoice->address }}</p>
-        <p><strong>Kode Pos:</strong> {{ $invoice->postal_code }}</p>
-        <p><strong>Tanggal Pembelian:</strong> {{ $invoice->created_at->format('d-m-Y H:i') }}</p>
+
+    <div class="row mb-4 invoice-details">
+        <div class="col-md-6">
+            <h5>Dibuat Oleh:</h5>
+            <p><strong>Beevities Store</strong><br>
+            Jl. Chairil Anwar No. 123, Jakarta<br>
+            support@beevities.com</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <h5>Ditujukan Untuk:</h5>
+            <p><strong>{{ Auth::user()->name }}</strong><br>
+            {{ $invoice->address }}<br>
+            {{ $invoice->postal_code }}</p>
+        </div>
     </div>
+
+    <p><strong>Nomor Faktur:</strong> {{ $invoice->invoice_number }}</p>
+    <p><strong>Tanggal Pembelian:</strong> {{ $invoice->created_at->format('d-m-Y H:i') }}</p>
 
     <table class="table table-bordered mt-4">
         <thead class="table-dark">
@@ -37,8 +52,13 @@
         </tbody>
     </table>
 
-    <div class="mt-4">
-        <h3 class="text-end">Total Harga: Rp. {{ number_format($invoice->total_price) }}</h3>
+    <div class="total-box">
+        Total Harga: Rp. {{ number_format($invoice->total_price) }}
+    </div>
+
+    <div class="footer-note">
+        Terima kasih telah mempercayai Beevities. <br>
+        Jika Anda memiliki pertanyaan, silakan hubungi <strong>support@beevities.com</strong>
     </div>
 
     <div class="d-print-none mt-4 text-center">
@@ -50,64 +70,99 @@
 
 @section('styles')
 <style>
-    @media print {
-        body {
-            font-family: Arial, sans-serif;
-        }
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 1.5cm;
+    }
 
-        #invoice {
-            padding: 20px;
-        }
+    body, html {
+        font-family: 'Georgia', serif;
+        font-size: 8.5pt;
+        line-height: 1.4;
+        background: white;
+        color: #000;
+    }
 
-        .navbar, .d-print-none, .sidebar {
-            display: none !important;
-        }
-
-        h2 {
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table th, table td {
-            border: 1px solid black;
-            padding: 10px;
-            text-align: left;
-        }
-
-        table thead {
-            background-color: #f2f2f2;
-        }
-
-        .text-end {
-            text-align: right;
-        }
+    .navbar, .sidebar, .d-print-none {
+        display: none !important;
     }
 
     #invoice {
-        background-color: #fff;
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        max-width: 100%;
+        padding: 0;
+        margin: 0 auto;
+    }
+
+    .invoice-logo {
+        width: 50px;
+        margin: 0 auto 6px;
+        display: block;
     }
 
     h2 {
-        font-size: 28px;
-        margin-bottom: 20px;
+        font-size: 14pt;
+        margin: 0 0 4px;
+        text-align: center;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    p {
+        font-size: 8pt;
+        margin: 0 0 4px;
+    }
+
+    .invoice-details h5 {
+        font-size: 9pt;
+        margin: 0 0 4px;
+    }
+
+    .invoice-details p {
+        font-size: 8pt;
+        margin: 0;
+    }
+
+    hr {
+        border-top: 1px solid #333;
+        margin: 8px 0;
     }
 
     table {
-        margin-top: 20px;
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
     }
 
-    .text-end {
-        text-align: right;
+    table th, table td {
+        border: 1px solid #555;
+        padding: 5px;
+        font-size: 8pt;
     }
+
+    table thead {
+        background-color: #f5f5f5;
+    }
+
+    .total-box {
+        margin-top: 10px;
+        text-align: right;
+        font-size: 9pt;
+        font-weight: bold;
+    }
+
+    .footer-note {
+        margin-top: 16px;
+        font-size: 8pt;
+        text-align: center;
+        border-top: 1px dashed #ccc;
+        padding-top: 6px;
+        color: #555;
+    }
+}
+
+
 </style>
 @endsection
