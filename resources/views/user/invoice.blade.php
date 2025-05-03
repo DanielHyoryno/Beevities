@@ -17,7 +17,7 @@
         <div class="col-md-6">
             <h5>Dibuat Oleh:</h5>
             <p><strong>Beevities Store</strong><br>
-            Jl. Chairil Anwar No. 123, Jakarta<br>
+            Jl. Chairil Anwar No. 28A, Jakarta<br>
             support@beevities.com</p>
         </div>
         <div class="col-md-6 text-md-end">
