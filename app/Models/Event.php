@@ -7,7 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
+
     protected $fillable = ['organization_id', 'image', 'title', 'description', 'event_date'];
+
+    // ✅ Add this to automatically treat event_date as Carbon
+    protected $casts = [
+        'event_date' => 'datetime',
+    ];
 
     public function getImageAttribute($value)
     {

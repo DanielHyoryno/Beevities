@@ -38,6 +38,7 @@ class UserSeeder extends Seeder
             'organization_id' => 1, // BNCC ID
         ]);
 
+        // BDM Organization Admin
         User::create([
             'name'     => 'BDM Admin',
             'email'    => 'bdmadmin@gmail.com',
