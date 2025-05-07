@@ -33,13 +33,23 @@ class EventController extends Controller
         $eventData = $request->except(['image']);
 
         // ✅ Store image as binary if uploaded
+        // if ($request->hasFile('image')) {
+        //     $eventData['image'] = file_get_contents($request->file('image')->getRealPath());
+        // }
+
         if ($request->hasFile('image')) {
-            $eventData['image'] = file_get_contents($request->file('image')->getRealPath());
+            $file = $request->file('image');
+            $mime = $file->getMimeType();
+            $base64 = base64_encode(file_get_contents($file));
+            $eventData['image'] = "data:$mime;base64,$base64"; // ✅ correct variable
         }
+        
+        
 
-        // ✅ Create Event with organization_id
-        Event::create(array_merge($eventData, ['organization_id' => Auth::user()->organization_id]));
+        $eventData['organization_id'] = Auth::user()->organization_id;
 
+
+        Event::create($eventData);
         return redirect()->route('organization_admin.events.index')->with('success', 'Event berhasil ditambahkan.');
     }
 
@@ -60,12 +70,13 @@ class EventController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
-        // ✅ Prepare form fields except image
         $updateData = $request->except(['image']);
 
-        // ✅ Update image if a new one is uploaded
         if ($request->hasFile('image')) {
-            $updateData['image'] = file_get_contents($request->file('image')->getRealPath());
+            $file = $request->file('image');
+            $mime = $file->getMimeType();
+            $base64 = base64_encode(file_get_contents($file));
+            $updateData['image'] = "data:$mime;base64,$base64";
         }
 
         // ✅ Update event with the new data

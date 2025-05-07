@@ -32,19 +32,22 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
-        // ✅ Prepare form fields
-        $productData = $request->except(['image']);
+        $productData = $request->only(['name', 'price', 'stock', 'category_id']);
 
-        // ✅ Store image as binary if uploaded
         if ($request->hasFile('image')) {
-            $productData['image'] = file_get_contents($request->file('image')->getRealPath());
+            $file = $request->file('image');
+            $mime = $file->getMimeType(); // e.g., image/jpeg
+            $base64 = base64_encode(file_get_contents($file));
+            $productData['image'] = "data:$mime;base64,$base64";
         }
 
-        // ✅ Create Product with organization_id
-        Product::create(array_merge($productData, ['organization_id' => Auth::user()->organization_id]));
+        $productData['organization_id'] = Auth::user()->organization_id;
+
+        Product::create($productData);
 
         return redirect()->route('organization_admin.products.index')->with('success', 'Produk berhasil ditambahkan.');
     }
+
 
     public function edit($id)
     {
@@ -66,23 +69,20 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
-        // ✅ Prepare form fields except image
-        $updateData = $request->except(['image']);
+        $updateData = $request->only(['name', 'price', 'stock', 'category_id']);
 
-        // ✅ Update image if a new one is uploaded
         if ($request->hasFile('image')) {
-            $updateData['image'] = file_get_contents($request->file('image')->getRealPath());
+            $file = $request->file('image');
+            $mime = $file->getMimeType();
+            $base64 = base64_encode(file_get_contents($file));
+            $updateData['image'] = "data:$mime;base64,$base64";
         }
 
-        // ✅ Update event with the new data
-        try {
-            $product->update($updateData);
-        } catch (\Exception $e) {
-            dd($e->getMessage()); // Show the actual error message
-        }        
+        $product->update($updateData);
 
         return redirect()->route('organization_admin.products.index')->with('success', 'Produk berhasil diperbarui.');
     }
+
 
     public function destroy($id)
     {

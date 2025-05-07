@@ -29,19 +29,26 @@ class ArticleController extends Controller
             'description' => 'required|string',
             'image' => 'nullable|image|max:2048'
         ]);
-
-        // Convert image to binary data
-        $imageData = $request->hasFile('image') ? file_get_contents($request->file('image')->getRealPath()) : null;
-
+    
+        $imageData = $request->except(['image']);
+    
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $mime = $file->getMimeType();
+            $base64 = base64_encode(file_get_contents($file));
+            $imageData = "data:$mime;base64,$base64"; // simpan ke variabel yang benar
+        }
+    
         Article::create([
             'organization_id' => Auth::user()->organization_id,
             'title' => $request->title,
             'description' => $request->description,
-            'image' => $imageData // Store as binary
+            'image' => $imageData,
         ]);
-
+    
         return redirect()->route('organization_admin.articles.index')->with('success', 'Artikel berhasil ditambahkan.');
     }
+    
 
     public function edit($id)
     {
@@ -62,12 +69,13 @@ class ArticleController extends Controller
             'image' => 'nullable|image|max:2048'
         ]);
 
-        // ✅ Prepare form fields except image
         $updateData = $request->except(['image']);
 
-        // ✅ Update image if a new one is uploaded
         if ($request->hasFile('image')) {
-            $updateData['image'] = file_get_contents($request->file('image')->getRealPath());
+            $file = $request->file('image');
+            $mime = $file->getMimeType();
+            $base64 = base64_encode(file_get_contents($file));
+            $updateData['image'] = "data:$mime;base64,$base64"; // langsung masuk ke updateData
         }
 
         // ✅ Update event with the new data

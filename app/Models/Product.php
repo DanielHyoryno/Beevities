@@ -12,19 +12,10 @@ class Product extends Model
     use HasFactory;
     protected $fillable = ['name', 'price', 'stock', 'category_id', 'organization_id', 'image'];
 
-    protected static function booted()
-    {
-        static::deleting(function ($product) {
-            if ($product->image && Storage::exists('public/' . $product->image)) {
-                Storage::delete('public/' . $product->image);
-            }
-        });
-    }
-
-    public function getImageAttribute($value)
-    {
-        return $value ? 'data:image/jpeg;base64,' . base64_encode($value) : null;
-    }
+    // public function getImageAttribute($value)
+    // {
+    //     return $value ? 'data:image/jpeg;base64,' . base64_encode($value) : null;
+    // }
 
     public function organization()
     {

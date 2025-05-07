@@ -15,10 +15,10 @@ class Event extends Model
         'event_date' => 'datetime',
     ];
 
-    public function getImageAttribute($value)
-    {
-        return $value ? 'data:image/jpeg;base64,' . base64_encode($value) : null;
-    }
+    // public function getImageAttribute($value)
+    // {
+    //     return $value ? 'data:image/jpeg;base64,' . base64_encode($value) : null;
+    // }
 
     public function organization()
     {
