@@ -41,7 +41,7 @@
         <div class="mb-3">
             <label class="form-label">Logo Organisasi</label>
             @if($organization->logo)
-                <img src="{{ asset('storage/' . $organization->logo) }}" class="img-thumbnail d-block mb-2" style="max-height: 100px;">
+                <img src="{{ $organization->logo }}" class="img-thumbnail d-block mb-2" style="max-height: 100px;">
             @endif
             <input type="file" name="logo" class="form-control">
         </div>
@@ -49,7 +49,7 @@
         <div class="mb-3">
             <label class="form-label">Banner Organisasi</label>
             @if($organization->banner_image)
-                <img src="{{ asset('storage/' . $organization->banner_image) }}" class="img-thumbnail d-block mb-2" style="max-height: 150px;">
+                <img src="{{ $organization->banner_image }}" class="img-thumbnail d-block mb-2" style="max-height: 150px;">
             @endif
             <input type="file" name="banner_image" class="form-control">
         </div>

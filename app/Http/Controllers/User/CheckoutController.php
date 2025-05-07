@@ -63,33 +63,41 @@ class CheckoutController extends Controller
             'postal_code' => 'required|digits:5',
             'selected_products' => 'required|array',
             'total_price' => 'required|integer|min:1',
+            'payment_proof' => 'required|image|max:2048', // ✅ Validasi gambar
         ],[
             'selected_products.required' => 'Anda harus memilih setidaknya satu produk untuk checkout.',
         ]);
-
+    
+        // 🔁 Konversi gambar ke base64
+        $file = $request->file('payment_proof');
+        $base64 = base64_encode(file_get_contents($file));
+        $mime = $file->getMimeType();
+        $base64Image = "data:$mime;base64,$base64";
+    
         $selectedProducts = $request->input('selected_products');
         $totalPrice = $request->input('total_price');
-
+    
         $invoice = Invoice::create([
             'invoice_number' => 'INV-' . time(),
             'user_id' => Auth::id(),
             'address' => $request->address,
             'postal_code' => $request->postal_code,
             'total_price' => $totalPrice,
+            'payment_proof' => $base64Image, // ✅ Simpan bukti
         ]);
-
+    
         foreach ($selectedProducts as $cartId => $quantity) {
             $cartItem = Cart::where('id', $cartId)->where('user_id', Auth::id())->with('product')->first();
-
+    
             if(!$cartItem){
                 return redirect()->route('user.cart')->with('error', 'Keranjang tidak valid.');
             }
-
+    
             $product = $cartItem->product;
             if($product->stock < $quantity){
                 return redirect()->route('user.cart')->with('error', "Stok produk {$product->name} tidak mencukupi.");
             }
-
+    
             $product->stock -= $quantity;
             $product->save();
             InvoiceDetail::create([
@@ -100,8 +108,10 @@ class CheckoutController extends Controller
             ]);
             $cartItem->delete();
         }
+    
         return redirect()->route('user.invoice', $invoice->id)->with('success', 'Checkout berhasil! Berikut faktur pembelian Anda.');
     }
+    
 
     public function invoice($id){
         $invoice = Invoice::with('details.product')->where('user_id', Auth::id())->findOrFail($id);

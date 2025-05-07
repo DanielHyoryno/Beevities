@@ -14,6 +14,7 @@ class Invoice extends Model
         'user_id',
         'address',
         'postal_code',
+        'payment_proof',
         'total_price'
     ];
 

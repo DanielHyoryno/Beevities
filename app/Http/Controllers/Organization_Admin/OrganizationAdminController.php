@@ -57,19 +57,25 @@ class OrganizationAdminController extends Controller
             'phone' => 'nullable|string|max:15',
             'website' => 'nullable|url',
             'banner_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:1024',
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         // ✅ Initialize all form fields except the image fields
         $organizationData = $request->except(['logo', 'banner_image']);
 
-        // ✅ Store the binary image data
+        // Store base64
         if ($request->hasFile('logo')) {
-            $organizationData['logo'] = file_get_contents($request->file('logo')->getRealPath());
+            $file = $request->file('logo');
+            $mime = $file->getMimeType();
+            $base64 = base64_encode(file_get_contents($file));
+            $organizationData['logo'] = "data:$mime;base64,$base64";
         }
 
         if ($request->hasFile('banner_image')) {
-            $organizationData['banner_image'] = file_get_contents($request->file('banner_image')->getRealPath());
+            $file = $request->file('banner_image');
+            $mime = $file->getMimeType();
+            $base64 = base64_encode(file_get_contents($file));
+            $organizationData['banner_image'] = "data:$mime;base64,$base64";
         }
 
         // ✅ Update the organization (only once!)

@@ -32,8 +32,8 @@
 
         <h3>Total Harga: Rp. {{ number_format($totalPrice) }}</h3>
 
-        <form method="POST" action="{{ route('user.checkout.process') }}">
-            @csrf <!-- Token CSRF -->
+        <form method="POST" action="{{ route('user.checkout.process') }}" enctype="multipart/form-data">
+        @csrf <!-- Token CSRF -->
             <div class="mb-3">
                 <label for="address" class="form-label">Alamat Pengiriman</label>
                 <input type="text" name="address" class="form-control" placeholder="Masukkan alamat" required>
@@ -42,6 +42,11 @@
                 <label for="postal_code" class="form-label">Kode Pos</label>
                 <input type="text" name="postal_code" class="form-control" placeholder="Masukkan kode pos" required>
             </div>
+            <div class="mb-3">
+                <label for="payment_proof" class="form-label">Bukti Pembayaran</label>
+                <input type="file" name="payment_proof" class="form-control" accept="image/*" required>
+            </div>
+
             <input type="hidden" name="total_price" value="{{ $totalPrice }}">
             @foreach($checkoutItems as $item)
                 <input type="hidden" name="selected_products[{{ $item['id'] }}]" value="{{ $item['quantity'] }}">

@@ -11,15 +11,15 @@ class Organization extends Model
     protected $fillable = ['name', 'description', 'email', 'phone', 'website', 'banner_image', 'logo'];
 
 
-    public function getLogoAttribute($value)
-    {
-        return $value ? 'data:image/png;base64,' . base64_encode($value) : null;
-    }
+    // public function getLogoAttribute($value)
+    // {
+    //     return $value ? 'data:image/png;base64,' . base64_encode($value) : null;
+    // }
 
-    public function getBannerImageAttribute($value)
-    {
-        return $value ? 'data:image/png;base64,' . base64_encode($value) : null;
-    }
+    // public function getBannerImageAttribute($value)
+    // {
+    //     return $value ? 'data:image/png;base64,' . base64_encode($value) : null;
+    // }
 
     public function events()
     {

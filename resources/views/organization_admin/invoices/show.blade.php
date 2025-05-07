@@ -3,15 +3,23 @@
 @section('title', 'Invoice Details')
 
 @section('content')
-<div class="container mt-4">
-    <h2 class="mb-4">Invoice Details</h2>
+    <div class="container mt-4">
+        <h2 class="mb-4">Invoice Details</h2>
 
-    <div class="card shadow p-4 bg-light rounded mb-4">
+        <div class="card shadow p-4 bg-light rounded mb-4">
         <h4 class="fw-bold">Invoice Number: {{ $invoice->invoice_number }}</h4>
         <p><strong>Buyer Name:</strong> {{ $invoice->user->name }}</p>
         <p><strong>Shipping Address:</strong> {{ $invoice->address }}, {{ $invoice->postal_code }}</p>
         <p><strong>Date:</strong> {{ $invoice->created_at->format('d M Y, H:i') }}</p>
+
+        <!-- @if($invoice->payment_proof) -->
+            <div class="mt-3">
+                <h5><strong>Bukti Pembayaran:</strong></h5>
+                <img src="{{ $invoice->payment_proof }}" alt="Bukti Pembayaran" class="img-fluid rounded" style="max-height: 300px;">
+            </div>
+        <!-- @endif -->
     </div>
+
 
     <h3 class="fw-bold">Products Purchased</h3>
     <div class="table-responsive">

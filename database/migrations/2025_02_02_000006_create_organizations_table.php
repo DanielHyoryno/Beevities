@@ -13,8 +13,8 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->string('website')->nullable();
-            $table->binary('logo')->nullable();
-            $table->binary('banner_image')->nullable();
+            $table->longText('logo')->nullable();
+            $table->longText('banner_image')->nullable();
             $table->timestamps();
         });        
 
@@ -24,7 +24,7 @@ return new class extends Migration {
             $table->string('title');
             $table->text('description');
             $table->dateTime('event_date');
-            $table->binary('image')->nullable(); // <-- Ensure this exists
+            $table->longText('image')->nullable(); // <-- Ensure this exists
             $table->timestamps();
         
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
@@ -35,7 +35,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('organization_id');
             $table->string('title');
             $table->text('description'); // Make sure this exists
-            $table->binary('image')->nullable();
+            $table->longText('image')->nullable();
             $table->timestamps();
         
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
@@ -44,7 +44,7 @@ return new class extends Migration {
         Schema::create('organization_banners', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('organization_id');
-            $table->binary('banner_image');
+            $table->longText('banner_image');
             $table->timestamps();
             
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
