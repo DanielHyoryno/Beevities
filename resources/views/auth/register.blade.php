@@ -22,8 +22,8 @@
 
         .container {
             display: flex;
-            width: 800px;
-            height: 450px;
+            width: 900px;
+            height: 550px;
             background: white;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -86,7 +86,7 @@
         .login-btn {
             position: absolute;
             top: 20px;
-            right: -40px;
+            right: -220px;
             transform: rotate(90deg);
             background-color: #2c52e2;
             color: white;
@@ -139,14 +139,23 @@
                 @enderror
 
                 <input type="hidden" name="role" value="0">
+
                 <label for="password_confirmation">konfirmasi password</label>
                 <input type="password" name="password_confirmation" required>
                 @error('password_confirmation')
                     <p class="error-message">{{ $message }}</p>
                 @enderror
 
+                <!-- Nomor HP field inserted here -->
+                <label for="number">Nomor HP</label>
+                <input type="text" name="number" required>
+                @error('number')
+                    <p class="error-message">{{ $message }}</p>
+                @enderror
+
                 <button type="submit">Sign Up</button>
             </form>
+
         </div>
 
         <div class="right-side">
