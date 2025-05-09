@@ -46,13 +46,23 @@ class CartController extends Controller
     }
 
 
+
     public function removeFromCart($id){
+        \Log::info("DELETE attempt. Cart ID = $id, User ID = " . Auth::id());
+
         $cartItem = Cart::where('user_id', Auth::id())->where('id', $id)->first();
-        if($cartItem){
+
+        if ($cartItem) {
+            \Log::info("Cart item found. Deleting ID = $id");
             $cartItem->delete();
             return redirect()->route('user.cart')->with('success', 'Produk berhasil dihapus dari keranjang!');
         }
+
+        \Log::warning("Cart item NOT FOUND for ID = $id and User = " . Auth::id());
         return redirect()->route('user.cart')->with('error', 'Produk tidak ditemukan di keranjang.');
     }
+
+
+
 
 }
