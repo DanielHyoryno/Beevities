@@ -3,147 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Sign Up</title>
     <style>
-        body {
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            display: flex;
+        }
+
+        body {
             height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f2f2f2;
         }
 
         .container {
             display: flex;
-            width: 100%;
+            width: 800px;
+            height: 450px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
         .left-side {
             flex: 1;
-            background-size: cover;
-        }
-
-        .right-side {
-            flex: 0.5;
+            background: linear-gradient(to bottom right, #e0e0e0, #ffffff);
+            padding: 40px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
+            position: relative;
+        }
+
+        .left-side h2 {
+            font-size: 36px;
+            color: #2c52e2;
+            margin-bottom: 30px;
+            display: flex;
             align-items: center;
-            margin-right: 50px;
-            padding: 20px;
-            box-shadow: -6px 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        form {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            border-radius: 8.11px;
+        .left-side h2::after {
+            content: "🎲";
+            font-size: 20px;
+            margin-left: 10px;
         }
 
-        h2 {
-            margin-bottom: 20px;
-            text-align: center;
+        .left-side form label {
+            font-size: 14px;
+            margin-bottom: 5px;
             color: #333;
         }
 
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            color: #555;
-        }
-
-        input {
-            width: 100%;
-            padding: 11px;
-            margin-bottom: 14px;
-            border: 0.9px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            width: 100%;
+        .left-side form input {
             padding: 10px;
-            background-color: #007bff;
-            color: #fff;
+            margin-bottom: 15px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        .left-side button {
+            background-color: #2c52e2;
+            color: white;
             border: none;
-            border-radius: 5px;
+            padding: 12px;
+            border-radius: 20px;
             font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .left-side button:hover {
+            background-color: #2040c2;
+        }
+
+        .login-btn {
+            position: absolute;
+            top: 20px;
+            right: -40px;
+            transform: rotate(90deg);
+            background-color: #2c52e2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
             cursor: pointer;
         }
 
-        button:hover {
-            background-color: #0056b3;
+        .right-side {
+            flex: 1;
+            background: linear-gradient(to bottom right, #2666cf, #ffffff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        a {
-            display: block;
-            text-align: center;
-            margin-top: 10px;
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .error-message {
-            color: red;
-            font-size: 12px;
+        .right-side img {
+            width: 60%;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="left-side"></div>
-
-        <div class="right-side">
+<div class="container">
+        <div class="left-side">
+            <a href="{{ route('login') }}">
+                <button class="login-btn">log in</button>
+            </a>
+            <h2>Sign Up</h2>
             <form method="POST" action="{{ route('register') }}">
                 @csrf
-                <h2>Register</h2>
+                <label for="name">username</label>
+                <input type="text" name="name" required>
+                @error('name')
+                    <p class="error-message">{{ $message }}</p>
+                @enderror
 
-                <div>
-                    <label for="name">Nama:</label>
-                    <input type="text" name="name" placeholder="Nama" required>
-                    @error('name')
-                        <p class="error-message">{{ $message }}</p>
-                    @enderror
-                </div>
+                <label for="email">email</label>
+                <input type="email" name="email" required>
+                @error('email')
+                    <p class="error-message">{{ $message }}</p>
+                @enderror
 
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" placeholder="Email" required>
-                    @error('email')
-                        <p class="error-message">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="password">Password:</label>
-                    <input type="password" name="password" placeholder="Password" required>
-                    @error('password')
-                        <p class="error-message">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="password_confirmation">Konfirmasi Password:</label>
-                    <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" required>
-                </div>
-
-                <div>
-                    <label for="number">Nomor HP:</label>
-                    <input type="text" name="number" placeholder="Nomor HP" required>
-                    @error('number')
-                        <p class="error-message">{{ $message }}</p>
-                    @enderror
-                </div>
+                <label for="password">password</label>
+                <input type="password" name="password" required>
+                @error('password')
+                    <p class="error-message">{{ $message }}</p>
+                @enderror
 
                 <input type="hidden" name="role" value="0">
-                <button type="submit">Register</button>
-                <a href="{{ route('login') }}">Back</a>
+                <label for="password_confirmation">konfirmasi password</label>
+                <input type="password" name="password_confirmation" required>
+                @error('password_confirmation')
+                    <p class="error-message">{{ $message }}</p>
+                @enderror
+
+                <button type="submit">Sign Up</button>
             </form>
+        </div>
+
+        <div class="right-side">
+            <img src="https://pelajarinfo.id/wp-content/uploads/2023/11/001-BINUS-1536x864.png" alt="logo Binus">
         </div>
     </div>
 </body>
