@@ -45,12 +45,14 @@ class CartController extends Controller
         return redirect()->route('user.cart')->with('success', 'Produk berhasil ditambahkan ke keranjang!');
     }
 
+
     public function removeFromCart($id){
-        $cartItem = Cart::where('user_id', Auth::id())->where('product_id', $id)->first();
+        $cartItem = Cart::where('user_id', Auth::id())->where('id', $id)->first();
         if($cartItem){
             $cartItem->delete();
             return redirect()->route('user.cart')->with('success', 'Produk berhasil dihapus dari keranjang!');
         }
         return redirect()->route('user.cart')->with('error', 'Produk tidak ditemukan di keranjang.');
     }
+
 }
