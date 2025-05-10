@@ -68,6 +68,7 @@
                     <p class="card-text">Rp. {{ number_format($product->price) }}</p>
                     <form method="POST" action="{{ route('user.cart.add', $product->id) }}">
                         @csrf
+                        <input type="number" name="quantity" class="form-control" min="1" max="{{ $product->stock }}" value="1" required>
                         <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
                     </form>
                 </div>
