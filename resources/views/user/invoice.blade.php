@@ -2,6 +2,17 @@
 
 @section('title', 'Faktur Pembelian')
 
+@section('styles')
+    <style>
+        .invoice-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            margin: 13px;
+        }
+    </style>
+@endsection
+
 @section('content')
 <div class="container mt-4" id="invoice">
 
