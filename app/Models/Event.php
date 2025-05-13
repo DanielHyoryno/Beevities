@@ -8,7 +8,18 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['organization_id', 'image', 'title', 'description', 'event_date'];
+    protected $fillable = [
+        'organization_id',
+        'image',
+        'title',
+        'description',
+        'event_date',
+        'location',
+        'zoom_link',
+        'ticket_price',
+        'registration_link',
+
+    ];
 
     // ✅ Add this to automatically treat event_date as Carbon
     protected $casts = [

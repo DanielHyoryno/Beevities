@@ -26,30 +26,25 @@ class EventController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'event_date' => 'required|date',
+            'location' => 'nullable|string|max:255',
+            'zoom_link' => 'nullable|url|max:255',
+            'ticket_price' => 'required|numeric|min:0',
+            'registration_link' => 'nullable|url|max:255',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
-        // ✅ Prepare form fields
         $eventData = $request->except(['image']);
-
-        // ✅ Store image as binary if uploaded
-        // if ($request->hasFile('image')) {
-        //     $eventData['image'] = file_get_contents($request->file('image')->getRealPath());
-        // }
+        $eventData['organization_id'] = Auth::user()->organization_id;
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $mime = $file->getMimeType();
             $base64 = base64_encode(file_get_contents($file));
-            $eventData['image'] = "data:$mime;base64,$base64"; // ✅ correct variable
+            $eventData['image'] = "data:$mime;base64,$base64";
         }
-        
-        
-
-        $eventData['organization_id'] = Auth::user()->organization_id;
-
 
         Event::create($eventData);
+
         return redirect()->route('organization_admin.events.index')->with('success', 'Event berhasil ditambahkan.');
     }
 
@@ -67,6 +62,10 @@ class EventController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'event_date' => 'required|date',
+            'location' => 'nullable|string|max:255',
+            'zoom_link' => 'nullable|url|max:255',
+            'ticket_price' => 'required|numeric|min:0',
+            'registration_link' => 'nullable|url|max:255',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
@@ -79,11 +78,11 @@ class EventController extends Controller
             $updateData['image'] = "data:$mime;base64,$base64";
         }
 
-        // ✅ Update event with the new data
         $event->update($updateData);
 
         return redirect()->route('organization_admin.events.index')->with('success', 'Event berhasil diperbarui.');
     }
+
 
     public function destroy($id)
     {

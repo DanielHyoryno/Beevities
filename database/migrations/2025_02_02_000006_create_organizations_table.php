@@ -24,6 +24,11 @@ return new class extends Migration {
             $table->string('title');
             $table->text('description');
             $table->dateTime('event_date');
+            $table->string('location')->nullable();        // untuk lokasi fisik
+            $table->string('zoom_link')->nullable();       // untuk link Zoom/Meet
+            $table->string('registration_link')->nullable();
+            $table->decimal('ticket_price', 10, 2)->default(0); // harga tiket (default: gratis)
+
             $table->longText('image')->nullable(); // <-- Ensure this exists
             $table->timestamps();
         
