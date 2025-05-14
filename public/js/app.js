@@ -40273,27 +40273,27 @@ function Dashboard() {
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([{
       id: 1,
       image: "/assets/tech_up.jpg",
-      date: "Mar 22, 2025",
-      title: "Tech Up",
-      desc: "Join us for a day of innovation, technology, and networking.",
-      price: "Free",
+      date: "Jun 13, 2025",
+      title: "Tech Talk 2025",
+      desc: "A discussion on the latest in technology.",
+      price: "Rp25.000",
       button: "Get Ticket"
     }, {
       id: 2,
-      image: "/assets/kat_bdm.jpg",
-      date: "Mar 20, 2025",
-      title: "KAT 9.0",
-      desc: "Annual & Biggest concert of BDM",
-      price: "Rp 160.000",
-      button: "Get Ticket"
-    }, {
-      id: 3,
-      image: "/assets/caving.jpeg",
-      date: "Mar 25, 2025",
-      title: "Perjalanan Divisi Caving",
-      desc: "Caving is fun!!",
+      image: "/assets/workshop.png",
+      date: "Jun 28, 2025",
+      title: "Programming Workshop",
+      desc: "Learn to code with BNCC experts.",
       price: "Free",
       button: "Register"
+    }, {
+      id: 3,
+      image: "/assets/cybersec.jpg",
+      date: "Jul 13, 2025",
+      title: "Cyber Security Awareness",
+      desc: "Protect yourself in the digital world.",
+      price: "Rp15.000",
+      button: "Get Ticket"
     }]),
     _useState4 = _slicedToArray(_useState3, 1),
     events = _useState4[0];
@@ -40512,7 +40512,8 @@ function Dashboard() {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
                   className: "card-text text-muted small flex-grow-1",
                   children: org.desc
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ui_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+                  href: "/organizations/".concat(org.id),
                   className: "btn btn-primary btn-sm mt-auto w-100",
                   children: "View More"
                 })]
@@ -40670,7 +40671,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-D4RADZKF.mjs");
 /* harmony import */ var _ui_Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ui/Button */ "./resources/js/components/ui/Button.jsx");
 /* harmony import */ var _ui_Card__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ui/Card */ "./resources/js/components/ui/Card.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -40680,124 +40680,6 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-// import React, { useState, useEffect } from "react";
-// import { Link } from "react-router-dom";
-// import { Button } from "./ui/Button";
-// import { Card, CardContent } from "./ui/Card";
-
-// function SearchBar({ onSearch }) {
-//     return (
-//         <div
-//             className="bg-primary py-4"
-//             style={{
-//                 background: "linear-gradient(90deg, #2563EB 0%, #1E40AF 100%)",
-//             }}
-//         >
-//             <div className="container">
-//                 <input
-//                     type="text"
-//                     className="form-control form-control-lg"
-//                     placeholder="Search organizations..."
-//                     onChange={(e) => onSearch(e.target.value)}
-//                     style={{ borderRadius: "10px" }}
-//                 />
-//             </div>
-//         </div>
-//     );
-// }
-
-// function OrganizationCard({ org }) {
-//     return (
-//         <div className="col">
-//             <Card className="card h-100 text-center">
-//                 <CardContent className="card-body d-flex flex-column align-items-center">
-//                     <div
-//                         className="mb-3"
-//                         style={{
-//                             width: "100%",
-//                             height: "6rem",
-//                             display: "flex",
-//                             alignItems: "center",
-//                             justifyContent: "center",
-//                             backgroundColor: "#f8f9fa",
-//                             borderRadius: "10px",
-//                             overflow: "hidden",
-//                         }}
-//                     >
-//                     </div>
-//                     <h4 className="card-title h6 fw-semibold">{org.name}</h4>
-//                     <p className="card-text text-muted small flex-grow-1">
-//                         {org.description.length > 80
-//                             ? `${org.description.substring(0, 80)}...`
-//                             : org.description}
-//                     </p>
-//                     <Link
-//                         to={`/organizations/${org.id}`}
-//                         className="btn btn-primary btn-sm mt-auto w-100"
-//                     >
-//                         View More
-//                     </Link>
-//                 </CardContent>
-//             </Card>
-//         </div>
-//     );
-// }
-
-// export default function OrganizationsPage() {
-//     const [organizations, setOrganizations] = useState([]);
-//     const [filteredOrganizations, setFilteredOrganizations] = useState([]);
-//     const [searchTerm, setSearchTerm] = useState("");
-
-//     useEffect(() => {
-//         console.log("OrganizationsPage.jsx rendered", window.organizationsData);
-//         if (window.organizationsData) {
-//             console.log("Data received:", window.organizationsData);
-//             setOrganizations(window.organizationsData);
-//             setFilteredOrganizations(window.organizationsData);
-//         } else {
-//             console.error("No organizations data found");
-//             setOrganizations([
-//                 // {
-//                 //     id: 1,
-//                 //     logo: "/assets/bncc.png",
-//                 //     name: "Bina Nusantara Computer Club",
-//                 //     description: "Exploring technology and innovation",
-//                 // },
-//             ]);
-//             setFilteredOrganizations([]);
-//         }
-//     }, []);
-
-//     useEffect(() => {
-//         const filtered = organizations.filter((org) =>
-//             org.name?.toLowerCase().includes(searchTerm.toLowerCase())
-//         );
-//         setFilteredOrganizations(filtered);
-//     }, [searchTerm, organizations]);
-
-//     return (
-//         <div className="organizations-page">
-//             <SearchBar onSearch={setSearchTerm} />
-//             <section className="container py-5">
-//                 <div className="d-flex justify-content-between align-items-center mb-4">
-//                     <h2 className="h3 fw-bold">Organizations</h2>
-//                 </div>
-//                 {filteredOrganizations.length === 0 ? (
-//                     <div className="alert alert-warning text-center">
-//                         No organizations found
-//                     </div>
-//                 ) : (
-//                     <div className="row row-cols-1 row-cols-md-4 g-4">
-//                         {filteredOrganizations.map((org) => (
-//                             <OrganizationCard key={org.id} org={org} />
-//                         ))}
-//                     </div>
-//                 )}
-//             </section>
-//         </div>
-//     );
-// }
-
 
 
 
@@ -40861,8 +40743,8 @@ function OrganizationCard(_ref2) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
           className: "card-text text-muted small flex-grow-1",
           children: org.description.length > 80 ? "".concat(org.description.substring(0, 80), "...") : org.description
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-          to: "/organizations/".concat(org.id),
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+          href: "/organizations/".concat(org.id),
           className: "btn btn-primary btn-sm mt-auto w-100",
           children: "View More"
         })]

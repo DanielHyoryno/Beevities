@@ -32,6 +32,26 @@ class OrganizationSeeder extends Seeder
         ]);
 
         Organization::create([
+            'name' => 'Himpunan Mahasiswa Teknik Informatika (HIMTI)',
+            'description' => 'A student organization for Computer Science students at BINUS University, fostering leadership and IT development.',
+            'email' => 'himti.binusuniv@gmail.com',
+            'phone' => '081234567914',
+            'website' => 'https://ofog.himtibinus.or.id/',
+            'banner_image' => 'banners/himti.jpg',
+            'logo' => 'logos/himti_logo.jpg',
+        ]);
+
+        Organization::create([
+            'name' => 'Mahasiswa Bina Nusantara Pencinta Alam (SWANARAPALA)',
+            'description' => 'The official nature lovers\' organization at BINUS University, engaging in outdoor and environmental activities.',
+            'email' => 'swanarapala@binus.ac.id',
+            'phone' => '081234567915',
+            'website' => 'https://student-activity.binus.ac.id/swanarapala/',
+            'banner_image' => 'banners/swanarapala.jpg',
+            'logo' => 'logos/swanarapala_logo.jpg',
+        ]);
+
+        Organization::create([
             'name' => 'BINUS English Club',
             'description' => 'Developing English skills through classes and competitions.',
             'email' => 'bnec@binus.edu',

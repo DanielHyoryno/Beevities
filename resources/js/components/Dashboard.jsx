@@ -16,29 +16,29 @@ function Dashboard() {
         {
             id: 1,
             image: "/assets/tech_up.jpg",
-            date: "Mar 22, 2025",
-            title: "Tech Up",
-            desc: "Join us for a day of innovation, technology, and networking.",
-            price: "Free",
+            date: "Jun 13, 2025",
+            title: "Tech Talk 2025",
+            desc: "A discussion on the latest in technology.",
+            price: "Rp25.000",
             button: "Get Ticket",
         },
         {
             id: 2,
-            image: "/assets/kat_bdm.jpg",
-            date: "Mar 20, 2025",
-            title: "KAT 9.0",
-            desc: "Annual & Biggest concert of BDM",
-            price: "Rp 160.000",
-            button: "Get Ticket",
+            image: "/assets/workshop.png",
+            date: "Jun 28, 2025",
+            title: "Programming Workshop",
+            desc: "Learn to code with BNCC experts.",
+            price: "Free",
+            button: "Register",
         },
         {
             id: 3,
-            image: "/assets/caving.jpeg",
-            date: "Mar 25, 2025",
-            title: "Perjalanan Divisi Caving",
-            desc: "Caving is fun!!",
-            price: "Free",
-            button: "Register",
+            image: "/assets/cybersec.jpg",
+            date: "Jul 13, 2025",
+            title: "Cyber Security Awareness",
+            desc: "Protect yourself in the digital world.",
+            price: "Rp15.000",
+            button: "Get Ticket",
         },
     ]);
 
@@ -253,9 +253,12 @@ function Dashboard() {
                                     <p className="card-text text-muted small flex-grow-1">
                                         {org.desc}
                                     </p>
-                                    <Button className="btn btn-primary btn-sm mt-auto w-100">
+                                    <a
+                                        href={`/organizations/${org.id}`}
+                                        className="btn btn-primary btn-sm mt-auto w-100"
+                                    >
                                         View More
-                                    </Button>
+                                    </a>
                                 </CardContent>
                             </Card>
                         </div>
