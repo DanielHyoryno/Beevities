@@ -99,6 +99,7 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::post('/user/cart/add/{id}', [CartController::class, 'addToCart'])->name('user.cart.add');
     Route::post('/user/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('user.cart.remove');
     
+    
     Route::post('/user/checkout', [CheckoutController::class, 'checkout'])->name('user.checkout');
     Route::post('/user/checkout/process', [CheckoutController::class, 'processCheckout'])->name('user.checkout.process');
     Route::get('/user/checkout/view', [CheckoutController::class, 'viewCheckout'])->name('user.checkout.view');

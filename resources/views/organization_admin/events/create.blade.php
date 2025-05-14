@@ -25,6 +25,27 @@
             </div>
 
             <div class="mb-3">
+                <label for="location" class="m-1 text-secondary form-label fw-bold">Lokasi</label>
+                <input type="text" name="location" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="zoom_link" class="m-1 text-secondary form-label fw-bold">Zoom Link</label>
+                <input type="url" name="zoom_link" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="ticket_price" class="m-1 text-secondary form-label fw-bold">Harga Tiket (Rp)</label>
+                <input type="number" name="ticket_price" class="form-control" min="0"">
+            </div>
+
+            <div class="mb-3">
+                <label for="registration_link" class="m-1 text-secondary form-label fw-bold">Link Form Pendaftaran</label>
+                <input type="url" name="registration_link" class="form-control">
+            </div>
+
+
+            <div class="mb-3">
                 <label class="m-1 text-secondary form-label fw-bold">Gambar</label>
                 <input type="file" name="image" class="form-control">
             </div>

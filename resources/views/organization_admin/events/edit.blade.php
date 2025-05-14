@@ -27,6 +27,28 @@
             </div>
 
             <div class="mb-3">
+                <label for="location" class="m-1 text-secondary form-label fw-bold">Lokasi</label>
+                <input type="text" name="location" class="form-control" value="{{ $event->location }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="zoom_link" class="m-1 text-secondary form-label fw-bold">Zoom Link</label>
+                <input type="url" name="zoom_link" class="form-control" value="{{ $event->zoom_link }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="ticket_price" class="m-1 text-secondary form-label fw-bold">Harga Tiket (Rp)</label>
+                <input type="number" name="ticket_price" class="form-control" min="0" value="{{ $event->ticket_price }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="registration_link" class="m-1 text-secondary form-label fw-bold">Link Form Pendaftaran</label>
+                <input type="url" name="registration_link" class="form-control"
+                    value="{{ $event->registration_link }}">
+            </div>
+
+
+            <div class="mb-3">
                 <label class="m-1 text-secondary form-label fw-bold">Gambar Event</label>
                 @if($event->image)
                     <div class="mb-2 text-center">

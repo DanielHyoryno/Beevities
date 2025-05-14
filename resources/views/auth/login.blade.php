@@ -1,130 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Log In</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         body {
             margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
         }
 
-        .container {
+        .container-box {
+            max-width: 1000px;
+            height: 600px;
+            margin: 5vh auto;
             display: flex;
-            width: 100%;
+            border-radius: 30px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        .left-side, .right-side {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
         }
 
         .left-side {
-            flex: 1;
-            background-size: cover;
+            background: linear-gradient(to bottom right, #0057b7, #f2f2f2);
         }
 
-        .right-side {
-            flex: 0.5;
-            display: flex;
-            margin-right: 50px;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+        .left-side img {
+            width: 80%;
+            max-width: 350px;
         }
 
-        form {
+        .right-side form {
             width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            border-radius: 8px;
+            max-width: 350px;
         }
 
-        h2 {
-            margin-bottom: 20px;
-            text-align: center;
-            color: #333;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
+        .right-side h2 {
+            font-size: 40px;
+            color: #2d5fff;
             font-weight: bold;
-            color: #555;
+            margin-bottom: 30px;
+            text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
         }
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        .form-label {
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
         }
 
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
+        .form-control {
+            border-radius: 20px;
+            padding: 10px 15px;
         }
 
-        button:hover {
-            background-color:rgb(9, 109, 216);
-        }
-
-        a {
-            display: block;
-            text-align: center;
+        .login-button, .switch-link {
             margin-top: 10px;
-            color: #007bff;
-            text-decoration: none;
+            border-radius: 20px;
+            padding: 10px;
+            width: 100%;
+            font-weight: bold;
         }
 
-        a:hover {
-            text-decoration: underline;
+        .login-button {
+            background-color: #2d5fff;
+            color: white;
+            border: none;
+        }
+
+        .login-button:hover {
+            background-color: #004cd1;
+        }
+
+        .switch-link {
+            background-color: #e0e7ff;
+            color: #2d5fff;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .switch-link:hover {
+            background-color: #c4d1ff;
         }
 
         .error-message {
             color: red;
             font-size: 12px;
+            margin-top: 2px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="left-side"></div>
+    <div class="container-box">
+        <div class="left-side">
+            <img src="https://pelajarinfo.id/wp-content/uploads/2023/11/001-BINUS-1536x864.png" alt="logo Binus">
+        </div>
 
         <div class="right-side">
             <form method="POST" action="{{ route('login') }}">
                 @csrf
-                <h2>Login</h2>
+                <h2>Log In</h2>
 
                 @if(session('error'))
                     <p class="error-message">{{ session('error') }}</p>
                 @endif
 
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" placeholder="Email" required>
-                </div>
-
-                <div>
-                    <label for="password">Password:</label>
-                    <input type="password" name="password" placeholder="Password" required>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" required>
                     @error('email')
                         <p class="error-message">{{ $message }}</p>
                     @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" required>
                     @error('password')
                         <p class="error-message">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <button type="submit">Login</button>
-                <a href="{{ route('register') }}">Register</a>
+                <div class="d-flex justify-content-between gap-2 mt-3">
+                    <button type="submit" class="login-button w-50">Log In</button>
+                    <a href="{{ route('register') }}" class="switch-link w-50 text-center">Sign Up</a>
+                </div>
+
             </form>
         </div>
     </div>
