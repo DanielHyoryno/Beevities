@@ -212,14 +212,13 @@
 </style>
 @endsection
 
+
 @section('content')
 <div class="container mt-4">
     <h2 class="mb-4">
-        <img 
-            src="https://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Sale-Stickers-PNG/Shopping_Cart_Icon_PNG_Clipart.png?m=1629814077" 
-            alt="Keranjang Belanja.png" 
-            style="height: 30px; width: auto; vertical-align: middle; margin-right: 10px;"
-        >   
+        <img src="https://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Sale-Stickers-PNG/Shopping_Cart_Icon_PNG_Clipart.png?m=1629814077"
+             alt="Keranjang Belanja.png"
+             style="height: 30px; width: auto; vertical-align: middle; margin-right: 10px;">   
         Keranjang Belanja
     </h2>
 
@@ -229,73 +228,70 @@
             <a href="{{ route('user.dashboard') }}">Lihat Organisasi</a>
         </div>
     @else
-        <form method="POST" action="{{ route('user.checkout') }}" id="checkout-form">
-            @csrf
-            <div class="cart-items-container">
-                @foreach($cart as $item)
-                <div class="cart-item">
-                    <div class="cart-item-header">
-                        <input type="checkbox" class="product-checkbox" name="selected_products[]" value="{{ $item->id }}">
-                        
-                        @if($item->product && $item->product->image)
-                            <img src="{{ $item->product->image }}" class="cart-item-image">
-                        @else
-                            <div class="cart-item-image" style="background: #eee; display: flex; align-items: center; justify-content: center;">
-                                <span style="font-size: 12px;">No Image</span>
-                            </div>
-                        @endif
-                        
-                        <div class="cart-item-details">
-                            <div class="product-name">{{ $item->product->name ?? 'Produk tidak ditemukan' }}</div>
-                            <div class="organization-name">{{ $item->product->organization->name ?? 'Tidak diketahui' }}</div>
+        <div class="cart-items-container">
+            @foreach($cart as $item)
+            <div class="cart-item">
+                <div class="cart-item-header">
+                    <input type="checkbox" class="product-checkbox" name="selected_products[]" form="checkout-form" value="{{ $item->id }}">
+
+                    @if($item->product && $item->product->image)
+                        <img src="{{ $item->product->image }}" class="cart-item-image">
+                    @else
+                        <div class="cart-item-image" style="background: #eee; display: flex; align-items: center; justify-content: center;">
+                            <span style="font-size: 12px;">No Image</span>
                         </div>
-                    </div>
-                    
-                    <div class="price-info">
-                        <span class="price-label">Harga Satuan:</span>
-                        <span class="price-value">Rp. {{ number_format($item->product->price ?? 0) }}</span>
-                    </div>
-                    
-                    <div class="quantity-controls">
-                        <span class="quantity-label">Jumlah:</span>
-                        <div class="input-group">
-                            <button type="button" class="btn-quantity btn-decrease" data-id="{{ $item->id }}">−</button>
-                            <input type="text" class="quantity-input" value="{{ $item->quantity }}" data-id="{{ $item->id }}" readonly>
-                            <button type="button" class="btn-quantity btn-increase" data-id="{{ $item->id }}">+</button>
-                        </div>
-                    </div>
-                    
-                    <div class="subtotal-info">
-                        <span class="subtotal-label">Subtotal:</span>
-                        <span class="subtotal-value" id="subtotal-{{ $item->id }}">
-                            Rp. {{ number_format(($item->product->price ?? 0) * $item->quantity) }}
-                        </span>
-                    </div>
-                    
-                    <div class="action-buttons">
-                        @if($item->product)
-                            <form action="{{ route('user.cart.remove', $item->id) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn-trash">
-                                    <img 
-                                        src="https://cdn-icons-png.flaticon.com/512/2891/2891491.png" 
-                                        alt="Hapus" 
-                                        class="trash-icon"
-                                    >
-                                </button>
-                            </form>
-                        @else
-                            <span class="text-muted">Tidak bisa dihapus</span>
-                        @endif
+                    @endif
+
+                    <div class="cart-item-details">
+                        <div class="product-name">{{ $item->product->name ?? 'Produk tidak ditemukan' }}</div>
+                        <div class="organization-name">{{ $item->product->organization->name ?? 'Tidak diketahui' }}</div>
                     </div>
                 </div>
-                @endforeach
+
+                <div class="price-info">
+                    <span class="price-label">Harga Satuan:</span>
+                    <span class="price-value">Rp. {{ number_format($item->product->price ?? 0) }}</span>
+                </div>
+
+                <div class="quantity-controls">
+                    <span class="quantity-label">Jumlah:</span>
+                    <div class="input-group">
+                        <button type="button" class="btn-quantity btn-decrease" data-id="{{ $item->id }}">−</button>
+                        <input type="text" class="quantity-input" value="{{ $item->quantity }}" data-id="{{ $item->id }}" readonly>
+                        <button type="button" class="btn-quantity btn-increase" data-id="{{ $item->id }}">+</button>
+                    </div>
+                </div>
+
+                <div class="subtotal-info">
+                    <span class="subtotal-label">Subtotal:</span>
+                    <span class="subtotal-value" id="subtotal-{{ $item->id }}">
+                        Rp. {{ number_format(($item->product->price ?? 0) * $item->quantity) }}
+                    </span>
+                </div>
+
+                <div class="action-buttons">
+                    @if($item->product)
+                        <form action="{{ route('user.cart.remove', $item->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn-trash">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2891/2891491.png" alt="Hapus" class="trash-icon">
+                            </button>
+                        </form>
+                    @else
+                        <span class="text-muted">Tidak bisa dihapus</span>
+                    @endif
+                </div>
             </div>
-            
-            <div class="checkout-container">
+            @endforeach
+        </div>
+
+        {{-- Form Checkout (HANYA di bawah) --}}
+        <div class="checkout-container">
+            <form method="POST" action="{{ route('user.checkout') }}" id="checkout-form">
+                @csrf
                 <button type="submit" class="btn btn-success" id="checkout-button" disabled>Checkout</button>
-            </div>
-        </form>
+            </form>
+        </div>
 
         <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -316,7 +312,8 @@
             const updateQuantityAndSubtotal = (id, change) => {
                 const quantityInput = document.querySelector(`.quantity-input[data-id="${id}"]`);
                 const price = parseInt(document.querySelector(`input[name="selected_products[]"][value="${id}"]`)
-                                .closest('.cart-item').querySelector('.price-value').innerText.replace(/[^\d]/g, ''));
+                                    .closest('.cart-item')
+                                    .querySelector('.price-value').innerText.replace(/[^\d]/g, ''));
 
                 let quantity = parseInt(quantityInput.value) + change;
                 if (quantity < 1) quantity = 1;
