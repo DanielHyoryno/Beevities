@@ -111,8 +111,9 @@ function Dashboard() {
                                 >
                                     Browse Events
                                 </Button>
-                                <Button
+                                <a
                                     className="btn"
+                                    href="/organizations"
                                     style={{
                                         backgroundColor: "white",
                                         color: "#2563EB",
@@ -120,12 +121,12 @@ function Dashboard() {
                                         borderRadius: "8px",
                                         padding: "12px 30px",
                                         fontSize: "16px",
+                                        textDecoration: "none", 
+                                        display: "inline-block",
                                     }}
-                                    asChild
-                                    href={organizationRoute}
                                 >
                                     Join Organizations
-                                </Button>
+                                </a>
                             </div>
                         </div>
                         <div className="col-10 col-md-6">

@@ -40362,18 +40362,20 @@ function Dashboard() {
                   fontSize: "16px"
                 },
                 children: "Browse Events"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ui_Button__WEBPACK_IMPORTED_MODULE_1__.Button, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
                 className: "btn",
+                href: "/organizations",
                 style: {
                   backgroundColor: "white",
                   color: "#2563EB",
                   border: "1px solid #2563EB",
                   borderRadius: "8px",
                   padding: "12px 30px",
-                  fontSize: "16px"
+                  fontSize: "16px",
+                  textDecoration: "none",
+                  // ini buat override underline default <a>
+                  display: "inline-block" // supaya padding keliatan rapi
                 },
-                asChild: true,
-                href: organizationRoute,
                 children: "Join Organizations"
               })]
             })]
