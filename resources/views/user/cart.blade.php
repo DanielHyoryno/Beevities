@@ -87,9 +87,9 @@
     .quantity-controls {
         display: flex;
         align-items: center;
-        justify-content: flex-end; /* Align to the right */
+        justify-content: flex-end;
         margin-bottom: 10px;
-        gap: 10px; /* Optional: Add spacing between controls */
+        gap: 10px;
     }
 
     .input-group {

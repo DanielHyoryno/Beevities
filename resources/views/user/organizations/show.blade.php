@@ -1,13 +1,100 @@
 @extends('user.layouts.app')
 @section('content')
 
+@section('styles')
+<style>
+    .AddToCart{
+        background-color: rgb(45, 58, 236);
+        color: rgb(240, 231, 231);
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        border-style: none;
+        margin-top: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .AddToCart:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .w-100{
+        width: 100vh;
+        height: 56.25vh;
+        border-radius: 16px;
+    }
+
+    .view-details, .read-more{
+        background-color: rgb(45, 58, 236);
+        color: rgb(240, 231, 231);
+        width: 300px;
+        height: auto;
+        border-radius: 12px;
+        border-style: none;
+        margin-top: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-decoration: none;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .view-details:hover, .read-more:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .ViewDetails, .ReadMore{
+        text-decoration: none;
+    }
+
+    .mb-3 {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .text-muted{
+        text-align: center;
+    }
+
+    h2, h1{
+        font-weight: bold;
+    }
+
+    .card {
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .card-img-top {
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+    }
+
+    .form-control {
+        border-radius: 12px;
+        margin-bottom: 10px;
+    }
+</style>
+@endsection
+    
+
 <div class="container mt-4">
     <!-- Organization Banner -->
     <div class="mb-4">
         @if($organization->banner_image)
-            <img src="{{$organization->banner_image}}" alt="Banner" class="w-100" style="height: 200px; object-fit: cover; border-radius: 10px;">
+            <img src="{{$organization->banner_image}}" alt="Banner" class="w-100" >
         @else
-            <img src="{{ asset('placeholder.png') }}" alt="Placeholder" class="w-100" style="height: 200px; object-fit: cover; border-radius: 10px;">
+            <img src="{{ asset('placeholder.png') }}" alt="Placeholder" class="w-100">
         @endif
     </div>
 
@@ -28,7 +115,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $event->title }}</h5>
                     <p class="card-text">{{ Str::limit($event->description, 80) }}</p>
-                    <a href="{{ route('events.show', $event->id) }}" class="btn btn-primary btn-sm">View Details</a>
+                    <a href="{{ route('events.show', $event->id) }}" class="ViewDetails"><div class = "view-details">View Details</div></a>
                 </div>
             </div>
         @endforeach
@@ -47,7 +134,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $article->title }}</h5>
                     <p class="card-text">{{ Str::limit($article->description, 80) }}</p>
-                    <a href="{{ route('articles.show', $article->id) }}" class="btn btn-secondary btn-sm">Read More</a>
+                    <a href="{{ route('articles.show', $article->id) }}" class="ReadMore"><div class = "read-more">Read More</div></a>
                 </div>
             </div>
         @endforeach
@@ -69,7 +156,7 @@
                     <form method="POST" action="{{ route('user.cart.add', $product->id) }}">
                         @csrf
                         <input type="number" name="quantity" class="form-control" min="1" max="{{ $product->stock }}" value="1" required>
-                        <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
+                        <button type="submit" class="AddToCart">Add to Cart</button>
                     </form>
                 </div>
             </div>
