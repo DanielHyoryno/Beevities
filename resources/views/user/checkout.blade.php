@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <div class="container pt-5">
+    <div class="container">
         <h2 class="flex">Beevities</h2>
 
 

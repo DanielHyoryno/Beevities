@@ -16,7 +16,7 @@
     @yield('styles')
 
     <style>
-        .navbar{
+        .navbar {
             position: fixed;
             width: 100%;
             z-index: 1000;
@@ -61,7 +61,7 @@
             gap: 1rem;
         }
 
-        .nav-item1{
+        .nav-item1 {
             position: relative;
         }
 
@@ -125,7 +125,10 @@
             </div>
         </nav>
     </header>
-    @yield('content')
+    <div class="pt-5">
+        @yield('content')
+    </div>
+
     @yield('scripts')
     @if(file_exists(public_path('js/app.js')))
     <script src="{{ mix('js/app.js') }}" defer></script>
