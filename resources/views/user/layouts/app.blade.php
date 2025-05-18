@@ -16,7 +16,14 @@
     @yield('styles')
 
     <style>
-        
+        .navbar{
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+            top: 0;
+        }
+
         .navbar-brand,
         .nav-link {
             color: black !important;
@@ -32,8 +39,47 @@
             border-radius: 5px;
         }
 
+        .btn-hover-gray:hover {
+            background-color: grey;
+            color: grey;
+        }
+
         #navbarNav {
-            padding-left: 25rem;
+            padding-left: 26rem;
+        }
+
+        #log-out {
+            border: none;
+            background: none;
+        }
+
+        #rightsideNav {
+            gap: 1rem;
+        }
+
+        #leftsideNav {
+            gap: 1rem;
+        }
+
+        .nav-item1{
+            position: relative;
+        }
+
+        .nav-item1::after {
+            content: "";
+            position: absolute;
+            bottom: -0.0em;
+            height: 0.1em;
+            width: 100%;
+            left: 0;
+            background-color: grey;
+            transition: 0.2s;
+            transition-timing-function: ease-in-out;
+            transform: scaleX(0);
+        }
+
+        .nav-item1:hover::after {
+            transform: scaleX(1);
         }
     </style>
 </head>
@@ -49,13 +95,13 @@
                 </button>
                 <div class="collapse navbar-collapse " id="navbarNav">
                     {{-- Kiri --}}
-                    <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="{{ route('user.dashboard') }}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('organizations.index') }}">Organizations</a></li>
+                    <ul class="navbar-nav" id="leftsideNav">
+                        <li class="nav-item1"><a class="nav-link" href="{{ route('user.dashboard') }}">Home</a></li>
+                        <li class="nav-item1"><a class="nav-link" href="{{ route('organizations.index') }}">Organizations</a></li>
                     </ul>
 
                     {{-- Kanan --}}
-                    <ul class="navbar-nav ms-auto align-items-center">
+                    <ul id="rightsideNav" class="navbar-nav ms-auto align-items-center">
                         @auth
                         <li class="nav-item pr-">
                             <span class="">Welcome {{ Auth::user()->name }}</span>
@@ -66,7 +112,7 @@
                         <li class="nav-item">
                             <form action="{{ route('logout') }}" method="POST" class="d-inline">
                                 @csrf
-                                <button><i class="bi bi-cart"></i></button>
+                                <button class="btn btn-outline-danger btn-hover-gray" id="log-out"><i class="bi bi-box-arrow-right"></i></button>
                             </form>
                         </li>
                         @else
