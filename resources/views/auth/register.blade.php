@@ -5,117 +5,117 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <title>Sign Up</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
       font-family: 'Arial', sans-serif;
     }
 
     body {
       height: 100vh;
+      margin: 0;
+      background: linear-gradient(to right, #eef2ff, #cfd9ff);
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #f2f2f2;
+      animation: fadeIn 1s ease-in-out;
     }
 
-    .container {
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .container-custom {
       display: flex;
       width: 1000px;
-      height: 620px;
-      background: white;
+      max-width: 100%;
       border-radius: 30px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      background: white;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
       overflow: hidden;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .left-side, .right-side {
+      padding: 40px 50px;
+      flex: 1;
     }
 
     .left-side {
-      width: auto;
-      height: auto
-      align-items: center;
-      flex: 1;
-      background: linear-gradient(to bottom, #ffffff, #e5e5e5);
-      padding: 40px 50px;
+      background: #ffffff;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      justify-content: center;
     }
 
     .left-side h2 {
-      font-size: 48px;
+      font-size: 42px;
       font-weight: bold;
-      color: #3366ff;
-      margin-bottom: 30px;
-      text-shadow: 2px 4px 5px rgba(0, 0, 0, 0.2);
+      color: #2c52e2;
+      margin-bottom: 25px;
+      text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    label {
+    form label {
       font-size: 14px;
-      color: #333;
+      margin-bottom: 4px;
     }
 
-    input {
-      padding: 10px 15px;
-      border: 1px solid #999;
+    form input {
       border-radius: 20px;
-      outline: none;
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      transition: all 0.3s ease;
+    }
+
+    form input:focus {
+      border-color: #3366ff;
+      box-shadow: 0 0 5px rgba(51, 102, 255, 0.3);
     }
 
     .error-message {
       color: red;
       font-size: 12px;
-      margin-left: 10px;
+      margin-left: 5px;
     }
 
     .button-group {
       display: flex;
-      justify-content: space-between;
-      gap: 20px;
+      gap: 15px;
       margin-top: 20px;
     }
 
-    .btn {
+    .btn-signup, .btn-login {
       flex: 1;
-      padding: 12px;
-      font-size: 16px;
-      font-weight: bold;
       border-radius: 20px;
-      text-align: center;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background-color 0.3s;
+      padding: 10px 0;
+      font-weight: bold;
+      transition: all 0.3s ease;
     }
 
     .btn-signup {
       background-color: #3366ff;
       color: white;
-      border: none;
     }
 
     .btn-signup:hover {
-      background-color: #1f4ed1;
+      background-color: #264dbe;
+      transform: scale(1.03);
     }
 
     .btn-login {
       background-color: #e0e0e0;
       color: #333;
-      border: none;
     }
 
     .btn-login:hover {
       background-color: #c0c0c0;
+      transform: scale(1.03);
     }
 
     .right-side {
-      flex: 1;
       background: linear-gradient(to bottom right, #2c52e2, #f0f0f0);
       display: flex;
       justify-content: center;
@@ -123,54 +123,84 @@
     }
 
     .right-side img {
-      width: 80%;
+      width: 100%;
       max-width: 350px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @media (max-width: 768px) {
+      .container-custom {
+        flex-direction: column;
+        height: auto;
+      }
+      .right-side {
+        padding: 30px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container-custom">
     <div class="left-side">
       <h2>Sign Up</h2>
       <form method="POST" action="{{ route('register') }}">
-        @csrf
-        <label for="name">Username</label>
-        <input type="text" name="name" required>
-        @error('name')
-        <p class="error-message">{{ $message }}</p>
-        @enderror
+  @csrf
 
-        <label for="email">Email</label>
-        <input type="email" name="email" required>
-        @error('email')
-        <p class="error-message">{{ $message }}</p>
-        @enderror
+  <div class="row mb-3">
+    <div class="col">
+      <label for="name" class="form-label">Username</label>
+      <input type="text" name="name" class="form-control" required>
+      @error('name')
+      <div class="error-message">{{ $message }}</div>
+      @enderror
+    </div>
 
-        <label for="password">Password</label>
-        <input type="password" name="password" required>
-        @error('password')
-        <p class="error-message">{{ $message }}</p>
-        @enderror
+    <div class="col">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" name="email" class="form-control" required>
+      @error('email')
+      <div class="error-message">{{ $message }}</div>
+      @enderror
+    </div>
+  </div>
 
-        <input type="hidden" name="role" value="0">
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" name="password" class="form-control" required>
+    @error('password')
+    <div class="error-message">{{ $message }}</div>
+    @enderror
+  </div>
 
-        <label for="password_confirmation">Konfirmasi Password</label>
-        <input type="password" name="password_confirmation" required>
-        @error('password_confirmation')
-        <p class="error-message">{{ $message }}</p>
-        @enderror
+  <input type="hidden" name="role" value="0">
 
-        <label for="number">Nomor HP</label>
-        <input type="text" name="number" required>
-        @error('number')
-        <p class="error-message">{{ $message }}</p>
-        @enderror
+  <div class="mb-3">
+    <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+    <input type="password" name="password_confirmation" class="form-control" required>
+    @error('password_confirmation')
+    <div class="error-message">{{ $message }}</div>
+    @enderror
+  </div>
 
-        <div class="button-group">
-          <button type="submit" class="btn btn-signup">Sign Up</button>
-          <a href="{{ route('login') }}" class="btn btn-login">Log In</a>
-        </div>
-      </form>
+  <div class="mb-3">
+    <label for="number" class="form-label">Nomor HP</label>
+    <input type="text" name="number" class="form-control" required>
+    @error('number')
+    <div class="error-message">{{ $message }}</div>
+    @enderror
+  </div>
+
+  <div class="d-flex gap-3 mt-4">
+    <button type="submit" class="btn btn-primary flex-fill">Sign Up</button>
+    <a href="{{ route('login') }}" class="btn btn-light flex-fill">Log In</a>
+  </div>
+</form>
+
     </div>
     <div class="right-side">
       <img src="https://pelajarinfo.id/wp-content/uploads/2023/11/001-BINUS-1536x864.png" alt="logo Binus">
