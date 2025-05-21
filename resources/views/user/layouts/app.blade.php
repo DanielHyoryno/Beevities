@@ -96,8 +96,19 @@
                 <div class="collapse navbar-collapse " id="navbarNav">
                     {{-- Kiri --}}
                     <ul class="navbar-nav" id="leftsideNav">
-                        <li class="nav-item1"><a class="nav-link" href="{{ route('user.dashboard') }}">Home</a></li>
-                        <li class="nav-item1"><a class="nav-link" href="{{ route('organizations.index') }}">Organizations</a></li>
+                        <li class="nav-item1">
+                            <a class="nav-link" href="{{ route('user.dashboard') }}">Home</a>
+                        </li>
+                        <li class="nav-item1">
+                            <a class="nav-link" href="{{ route('organizations.index') }}">Organizations</a>
+                        </li>
+                        @auth
+                        <li class="nav-item1">
+                            <a class="nav-link" href="{{ route('user.history') }}">
+                                <i class="bi bi-clock-history me-1"></i> Order History
+                            </a>
+                        </li>
+                        @endauth
                     </ul>
 
                     {{-- Kanan --}}

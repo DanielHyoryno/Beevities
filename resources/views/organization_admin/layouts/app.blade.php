@@ -12,28 +12,29 @@
 
     <style>
         body {
-            background: linear-gradient(to right, #021c30, #042a45);
+            background: linear-gradient(to right, #0a192f, #1c2c44);
             color: white;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .navbar {
-            background: #021c30;
+            background: #0a192f;
             padding: 15px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
         }
 
         .navbar-brand {
             font-size: 1.6rem;
             font-weight: bold;
             letter-spacing: 1px;
-            color: #1abc9c;
+            color: #00bcd4;
             text-decoration: none;
         }
 
-        .navbar-nav{
+        .navbar-nav {
             gap: 20px;
         }
+
         .navbar-nav .nav-link {
             color: white;
             font-weight: bold;
@@ -43,27 +44,38 @@
         }
 
         .navbar-nav .nav-link:hover {
-            background: #1abc9c;
-            color: #021c30;
+            background: #00acc1;
+            color: #0a192f;
         }
 
         .container {
             margin: 20px auto;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
         }
 
         .btn-primary {
-            background: #1abc9c;
+            background: #00bcd4;
             border: none;
         }
 
         .btn-primary:hover {
-            background: #16a085;
+            background: #008b9a;
         }
+
+        .btn-sm {
+            min-width: 80px;
+            justify-content: center;
+            text-align: center;
+            padding: 6px 12px;
+            font-weight: 600;
+        }
+
+
     </style>
+
 </head>
 <body>
 
@@ -95,14 +107,20 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="container mt-4">
-        <h2 class="m-4 fw-bold">Welcome, {{ Auth::user()->name }}!</h2>
-        <p class="m-4 fw-bold">Anda telah login sebagai admin organisasi: <strong>{{ Auth::user()->organization->name ?? 'Tanpa Organisasi' }}</strong></p>
-        @yield("content")
-    </div>
+     <!-- Main Content -->
+    <main class="flex-grow-1"> {{-- INI GANTI container utama --}}
+        <div class="container mt-4">
+            <h2 class="m-4 fw-bold">Welcome, {{ Auth::user()->name }}!</h2>
+            <p class="m-4 fw-bold">
+                Anda telah login sebagai admin organisasi: 
+                <strong>{{ Auth::user()->organization->name ?? 'Tanpa Organisasi' }}</strong>
+            </p>
+            @yield("content")
+        </div>
+    </main>
 
-    <footer class="text-center py-3 mt-5 bg-dark text-light">
+    <!-- Footer -->
+    <footer class="text-center py-3 bg-dark text-light">
         <p class="mb-0">&copy; {{ date('Y') }} Organization Admin Panel</p>
     </footer>
 

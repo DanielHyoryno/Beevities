@@ -16,6 +16,7 @@ class CreateInvoicesTable extends Migration
             $table->string('postal_code', 5);
             $table->longText('payment_proof')->nullable(); // gunakan longText jika menyimpan base64
             $table->integer('total_price');
+            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }

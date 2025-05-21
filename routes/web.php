@@ -142,4 +142,7 @@ Route::middleware(['auth', 'organization_admin'])->group(function () {
     // Invoices
     Route::get('/organization/invoices', [OrganizationInvoiceController::class, 'index'])->name('organization_admin.invoices.index');
     Route::get('/organization/invoices/{id}', [OrganizationInvoiceController::class, 'show'])->name('organization_admin.invoices.show');
+    Route::post('/organization/invoices/{id}/status', [OrganizationInvoiceController::class, 'updateStatus'])
+    ->name('organization_admin.invoices.updateStatus');
+
 });

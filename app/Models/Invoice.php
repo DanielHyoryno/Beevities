@@ -15,7 +15,8 @@ class Invoice extends Model
         'address',
         'postal_code',
         'payment_proof',
-        'total_price'
+        'total_price',
+        'status'
     ];
 
     public function user()

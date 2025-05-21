@@ -47,6 +47,16 @@
                     </table>
                 </div>
                 <h5 class="text-end text-success mt-3">💰 Total: Rp. {{ number_format($invoice->total_price) }}</h5>
+                <h6 class="text-end mt-2">
+                    <strong>📌 Status: </strong>
+                    @if($invoice->status === 'pending')
+                        <span class="badge bg-warning text-dark">Menunggu Konfirmasi</span>
+                    @elseif($invoice->status === 'accepted')
+                        <span class="badge bg-success">Diterima</span>
+                    @elseif($invoice->status === 'rejected')
+                        <span class="badge bg-danger">Ditolak</span>
+                    @endif
+                </h6>
             </div>
         </div>
         @endforeach

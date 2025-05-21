@@ -1,36 +1,40 @@
 @extends('organization_admin.layouts.app')
 
-@section('title', 'Daftar Event')
+@section('title', 'Manage Events')
 
 @section('content')
-<div class="container mt-4">
-    <h2 class="mb-4">Daftar Event</h2>
+    <div class="container">
+        <h2 class="mb-4 text-center fw-bold">Event Management</h2>
+        
+        <div class="d-flex justify-content-between mb-3">
+            <a href="{{ route('organization_admin.events.create') }}" class="btn btn-success">
+                <i class="fas fa-plus"></i> Add New Event
+            </a>
+        </div>
 
-    <a href="{{ route('organization_admin.events.create') }}" class="btn btn-primary mb-3">Tambah Event</a>
-
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover text-center">
-            <thead class="table-dark text-center">
-                <tr>
-                    <th>Gambar</th>
-                    <th>Nama Event</th>
-                    <th>Deskripsi</th>
-                    <th>Tanggal</th>
-                    <th>Lokasi</th>
-                    <th>Zoom</th>
-                    <th>Harga Tiket</th>
-                    <th>Link Form</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($events as $event)
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered align-middle">
+                <thead class="table-dark text-center">
                     <tr>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th>Zoom</th>
+                        <th>Price</th>
+                        <th>Form</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @forelse($events as $event)
+                    <tr class="table-primary">
                         <td>
                             @if($event->image)
-                                <img src="{{ $event->image }}" width="80" class="rounded shadow">
+                                <img src="{{ $event->image }}" alt="Event Image" width="60" class="rounded shadow">
                             @else
-                                <span class="text-muted">Tidak ada gambar</span>
+                                <span class="text-muted">No Image</span>
                             @endif
                         </td>
                         <td class="fw-bold">{{ $event->title }}</td>
@@ -47,30 +51,34 @@
                         <td>Rp{{ number_format($event->ticket_price, 0, ',', '.') }}</td>
                         <td>
                             @if($event->registration_link)
-                                <a href="{{ $event->registration_link }}" target="_blank" class="btn btn-sm btn-outline-success">
-                                    Buka
-                                </a>
+                                <a href="{{ $event->registration_link }}" target="_blank" class="btn btn-sm btn-outline-success">Open</a>
                             @else
                                 <span class="text-muted">-</span>
                             @endif
                         </td>
-
                         <td>
-                            <a href="{{ route('organization_admin.events.edit', $event->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('organization_admin.events.destroy', $event->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Hapus event ini?')">Hapus</button>
-                            </form>
+                            <div class="d-flex gap-2 justify-content-center">
+                                <a href="{{ route('organization_admin.events.edit', $event->id) }}" class="btn btn-warning btn-sm d-flex align-items-center gap-1">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <form action="{{ route('organization_admin.events.destroy', $event->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center gap-1" onclick="return confirm('Delete this event?')">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </form>
+                            </div>
                         </td>
+
                     </tr>
-                @empty
+                    @empty
                     <tr>
-                        <td colspan="8" class="text-center">Tidak ada event yang ditemukan.</td>
+                        <td colspan="9" class="text-center text-muted">No events found.</td>
                     </tr>
-                @endforelse
-            </tbody>
-        </table>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 @endsection

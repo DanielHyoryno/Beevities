@@ -48,7 +48,7 @@
         <a href="{{ route('organization_admin.events.index') }}" class="btn btn-primary px-4 py-2">Kelola Event</a>
         <a href="{{ route('organization_admin.articles.index') }}" class="btn btn-secondary px-4 py-2">Kelola Artikel</a>
         <a href="{{ route('organization_admin.products.index') }}" class="btn btn-warning px-4 py-2">Kelola Produk</a>
-        <a href="{{ route('organization_admin.invoices.index') }}" class="btn btn-danger px-4 py-2" >Lihat nvoice</a>
+        <a href="{{ route('organization_admin.invoices.index') }}" class="btn btn-danger px-4 py-2" >Kelalo Invoice</a>
     </div>
 </div>
 @endsection

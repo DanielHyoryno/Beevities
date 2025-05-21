@@ -28,4 +28,23 @@ class OrganizationInvoiceController extends Controller
 
         return view('organization_admin.invoices.show', compact('invoice'));
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $organizationId = Auth::user()->organization_id;
+        $invoice = Invoice::whereHas('details.product', function ($query) use ($organizationId) {
+            $query->where('organization_id', $organizationId);
+        })->findOrFail($id);
+
+        $request->validate([
+            'status' => 'required|in:accepted,rejected',
+        ]);
+
+        $invoice->status = $request->status;
+        $invoice->save();
+
+        return redirect()->route('organization_admin.invoices.show', $invoice->id)
+            ->with('success', 'Status invoice diperbarui menjadi ' . $request->status);
+    }
+
 }
