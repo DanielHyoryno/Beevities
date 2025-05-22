@@ -1,75 +1,75 @@
 <?php
 
-namespace App\Http\Controllers\Organization_Admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Organization;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::where('organization_id', Auth::user()->organization_id)->get();
-        return view('organization_admin.products.index', compact('products'));
+        $products = Product::with(['category', 'organization'])->get();
+        return view('admin.products.index', compact('products'));
     }
 
     public function create()
     {
         $categories = Category::all();
-        return view('organization_admin.products.create', compact('categories'));
+        $organizations = Organization::all();
+        return view('admin.products.create', compact('categories', 'organizations'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|min:3|max:80',
+            'name' => 'required|min:5|max:80',
             'price' => 'required|integer',
             'stock' => 'required|integer',
             'category_id' => 'required|exists:categories,id',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            'organization_id' => 'required|exists:organizations,id',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $productData = $request->only(['name', 'price', 'stock', 'category_id']);
+        $productData = $request->only(['name', 'price', 'stock', 'category_id', 'organization_id']);
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $mime = $file->getMimeType(); // e.g., image/jpeg
+            $mime = $file->getMimeType();
             $base64 = base64_encode(file_get_contents($file));
             $productData['image'] = "data:$mime;base64,$base64";
         }
 
-        $productData['organization_id'] = Auth::user()->organization_id;
-
         Product::create($productData);
 
-        return redirect()->route('organization_admin.products.index')->with('success', 'Produk berhasil ditambahkan.');
+        return redirect()->route('admin.products.index')->with('success', 'Produk berhasil ditambahkan.');
     }
-
 
     public function edit($id)
     {
-        $product = Product::where('organization_id', Auth::user()->organization_id)->findOrFail($id);
+        $product = Product::findOrFail($id);
         $categories = Category::all();
-        return view('organization_admin.products.edit', compact('product', 'categories'));
+        $organizations = Organization::all();
+        return view('admin.products.edit', compact('product', 'categories', 'organizations'));
     }
 
     public function update(Request $request, $id)
     {
-        $organizationId = Auth::user()->organization_id;
-        $product = Product::where('organization_id', $organizationId)->findOrFail($id);
+        $product = Product::findOrFail($id);
 
         $request->validate([
-            'name' => 'required|min:3|max:80',
+            'name' => 'required|min:5|max:80',
             'price' => 'required|integer',
             'stock' => 'required|integer',
             'category_id' => 'required|exists:categories,id',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            'organization_id' => 'required|exists:organizations,id',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $updateData = $request->only(['name', 'price', 'stock', 'category_id']);
+        $updateData = $request->only(['name', 'price', 'stock', 'category_id', 'organization_id']);
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
@@ -80,15 +80,14 @@ class ProductController extends Controller
 
         $product->update($updateData);
 
-        return redirect()->route('organization_admin.products.index')->with('success', 'Produk berhasil diperbarui.');
+        return redirect()->route('admin.products.index')->with('success', 'Produk berhasil diperbarui.');
     }
-
 
     public function destroy($id)
     {
-        $product = Product::where('organization_id', Auth::user()->organization_id)->findOrFail($id);
+        $product = Product::findOrFail($id);
         $product->delete();
 
-        return redirect()->route('organization_admin.products.index')->with('success', 'Produk berhasil dihapus.');
+        return redirect()->route('admin.products.index')->with('success', 'Produk berhasil dihapus.');
     }
 }

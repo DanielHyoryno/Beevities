@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 
 class OrganizationController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $organizations = Organization::all();
         return view('admin.organizations.index', compact('organizations'));
     }
 
-    public function create() {
+    public function create()
+    {
         return view('admin.organizations.create');
     }
 
@@ -22,7 +24,7 @@ class OrganizationController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:organizations,email',
             'phone' => 'nullable|string|max:15',
             'website' => 'nullable|url',
             'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
@@ -31,13 +33,18 @@ class OrganizationController extends Controller
 
         $organizationData = $request->except(['logo', 'banner_image']);
 
-        // ✅ Store image as binary
         if ($request->hasFile('logo')) {
-            $organizationData['logo'] = file_get_contents($request->file('logo')->getRealPath());
+            $file = $request->file('logo');
+            $mime = $file->getMimeType();
+            $base64 = base64_encode(file_get_contents($file));
+            $organizationData['logo'] = "data:$mime;base64,$base64";
         }
 
         if ($request->hasFile('banner_image')) {
-            $organizationData['banner_image'] = file_get_contents($request->file('banner_image')->getRealPath());
+            $file = $request->file('banner_image');
+            $mime = $file->getMimeType();
+            $base64 = base64_encode(file_get_contents($file));
+            $organizationData['banner_image'] = "data:$mime;base64,$base64";
         }
 
         Organization::create($organizationData);
@@ -45,8 +52,8 @@ class OrganizationController extends Controller
         return redirect()->route('admin.organizations.index')->with('success', 'Organization added successfully.');
     }
 
-
-    public function edit($id) {
+    public function edit($id)
+    {
         $organization = Organization::findOrFail($id);
         return view('admin.organizations.edit', compact('organization'));
     }
@@ -58,7 +65,7 @@ class OrganizationController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:organizations,email,' . $organization->id,
             'phone' => 'nullable|string|max:15',
             'website' => 'nullable|url',
             'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
@@ -68,11 +75,17 @@ class OrganizationController extends Controller
         $organizationData = $request->except(['logo', 'banner_image']);
 
         if ($request->hasFile('logo')) {
-            $organizationData['logo'] = file_get_contents($request->file('logo')->getRealPath());
+            $file = $request->file('logo');
+            $mime = $file->getMimeType();
+            $base64 = base64_encode(file_get_contents($file));
+            $organizationData['logo'] = "data:$mime;base64,$base64";
         }
 
         if ($request->hasFile('banner_image')) {
-            $organizationData['banner_image'] = file_get_contents($request->file('banner_image')->getRealPath());
+            $file = $request->file('banner_image');
+            $mime = $file->getMimeType();
+            $base64 = base64_encode(file_get_contents($file));
+            $organizationData['banner_image'] = "data:$mime;base64,$base64";
         }
 
         $organization->update($organizationData);
@@ -80,7 +93,8 @@ class OrganizationController extends Controller
         return redirect()->route('admin.organizations.index')->with('success', 'Organization updated successfully.');
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $organization = Organization::findOrFail($id);
         $organization->delete();
 
