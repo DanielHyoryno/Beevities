@@ -230,6 +230,7 @@
                     <div class="card-body">
                         <h6 class="card-title">{{ $product->name }}</h6>
                         <p class="card-text">Rp. {{ number_format($product->price) }}</p>
+                        <p class="card-text">Stock: {{ number_format($product->stock) }}</p>
                         <form method="POST" action="{{ route('user.cart.add', $product->id) }}">
                             @csrf
                             <input type="number" name="quantity" class="form-control form-control-sm" min="1" max="{{ $product->stock }}" value="1" required>

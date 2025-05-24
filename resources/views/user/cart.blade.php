@@ -4,24 +4,10 @@
 
 @section('styles')
 <style>
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 15px;
-    }
-
-    .mb-4 {
-        font-size: 24px;
-        font-weight: 700;
-        color: rgb(5, 1, 20);
-        margin-bottom: 20px;
-    }
-
     .cart-items-container {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 20px;
-        margin-bottom: 30px;
     }
 
     .cart-item {
@@ -42,8 +28,8 @@
     .product-checkbox {
         width: 18px;
         height: 18px;
-        accent-color: rgb(54, 143, 246);
-        margin-right: 15px;
+        accent-color: #3693f6;
+        margin-right: 10px;
     }
 
     .cart-item-image {
@@ -51,7 +37,7 @@
         height: 80px;
         object-fit: cover;
         border-radius: 4px;
-        margin-right: 15px;
+        margin-right: 10px;
     }
 
     .cart-item-details {
@@ -60,129 +46,60 @@
 
     .product-name {
         font-weight: 600;
-        margin-bottom: 5px;
+        margin-bottom: 4px;
     }
 
     .organization-name {
+        font-size: 13px;
         color: #666;
-        font-size: 14px;
-        margin-bottom: 10px;
     }
 
-    .price-info {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-    }
-
-    .price-label, .quantity-label {
-        color: #666;
-        font-size: 14px;
-    }
-
-    .price-value {
-        font-weight: 600;
-    }
-
+    .price-info,
+    .subtotal-info,
     .quantity-controls {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        justify-content: flex-end;
         margin-bottom: 10px;
-        gap: 10px;
-    }
-
-    .input-group {
-        display: flex;
-        align-items: center;
     }
 
     .quantity-input {
         width: 40px;
         text-align: center;
-        border: 1px solid #e0e0e0;
-        border-left: none;
-        border-right: none;
-        padding: 5px;
-        font-weight: 500;
+        border: 1px solid #ccc;
         height: 30px;
     }
 
     .btn-quantity {
         width: 30px;
         height: 30px;
-        border: 1px solid #e0e0e0;
-        background-color: #f5f5f5;
+        border: 1px solid #ccc;
+        background: #f2f2f2;
         cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 6px;
-        font-size: 14px;
+        font-weight: bold;
+        border-radius: 5px;
     }
 
-    .btn-quantity:hover {
-        background-color: #e0e0e0;
-    }
-
-    .subtotal-info {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 10px;
-        padding-top: 10px;
-        border-top: 1px solid #f0f0f0;
-    }
-
-    .subtotal-label {
-        font-weight: 600;
-    }
-
-    .subtotal-value {
-        font-weight: 700;
-        color: rgb(14, 11, 169);
+    .btn-quantity:disabled {
+        background-color: #ddd;
+        cursor: not-allowed;
     }
 
     .action-buttons {
         display: flex;
         justify-content: flex-end;
-        margin-top: 15px;
+        margin-top: auto;
     }
 
     .btn-trash {
         background: none;
         border: none;
         cursor: pointer;
-        padding: 5px;
-        border-radius: 25%;
-        transition: background-color 0.2s;
-    }
-
-    .btn-trash:hover {
-        background-color: rgba(174, 171, 170, 0.35);
     }
 
     .trash-icon {
         width: 20px;
         height: 20px;
-    }
-
-    .alert-warning {
-        background-color: #fff8e1;
-        border-color: #ffe0b2;
-        color: #ff6f00;
-        border-radius: 8px;
-        padding: 15px;
-    }
-
-    .alert-warning a {
-        color: #00aa5b;
-        font-weight: 500;
-        text-decoration: none;
-    }
-
-    .alert-warning a:hover {
-        text-decoration: underline;
     }
 
     .checkout-container {
@@ -193,40 +110,31 @@
 
     .btn-success {
         background-color: #00aa5b;
-        border-color: #00aa5b;
-        font-weight: 500;
-        padding: 10px 24px;
-        border-radius: 4px;
+        border: none;
+        padding: 10px 20px;
+        color: white;
+        font-weight: 600;
+        border-radius: 8px;
     }
 
-    .btn-success:hover {
-        background-color: #009552;
-        border-color: #009552;
-    }
-
-    #checkout-button:disabled {
-        background-color: #bdbdbd;
-        border-color: #bdbdbd;
+    .btn-success:disabled {
+        background-color: #bbb;
         cursor: not-allowed;
     }
 </style>
 @endsection
 
-
 @section('content')
 <div class="container mt-4">
     <h2 class="mb-4">
         <img src="https://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Sale-Stickers-PNG/Shopping_Cart_Icon_PNG_Clipart.png?m=1629814077"
-             alt="Keranjang Belanja.png"
-             style="height: 30px; width: auto; vertical-align: middle; margin-right: 10px;">   
+             alt="Keranjang Belanja"
+             style="height: 30px; width: auto; vertical-align: middle; margin-right: 10px;">
         Keranjang Belanja
     </h2>
 
     @if($cart->isEmpty())
-        <div class="alert alert-warning">
-            Keranjang Anda kosong. 
-            <a href="{{ route('user.dashboard') }}">Lihat Organisasi</a>
-        </div>
+        <div class="alert alert-warning">Keranjang Anda kosong. <a href="{{ route('user.dashboard') }}">Lihat Organisasi</a></div>
     @else
         <div class="cart-items-container">
             @foreach($cart as $item)
@@ -249,24 +157,19 @@
                 </div>
 
                 <div class="price-info">
-                    <span class="price-label">Harga Satuan:</span>
+                    <span>Harga:</span>
                     <span class="price-value">Rp. {{ number_format($item->product->price ?? 0) }}</span>
                 </div>
 
                 <div class="quantity-controls">
-                    <span class="quantity-label">Jumlah:</span>
-                    <div class="input-group">
-                        <button type="button" class="btn-quantity btn-decrease" data-id="{{ $item->id }}">−</button>
-                        <input type="text" class="quantity-input" value="{{ $item->quantity }}" data-id="{{ $item->id }}" readonly>
-                        <button type="button" class="btn-quantity btn-increase" data-id="{{ $item->id }}">+</button>
-                    </div>
+                    <button type="button" class="btn-quantity btn-decrease" data-id="{{ $item->id }}">−</button>
+                    <input type="text" class="quantity-input" value="{{ $item->quantity }}" data-id="{{ $item->id }}" data-stock="{{ $item->product->stock }}" readonly>
+                    <button type="button" class="btn-quantity btn-increase" data-id="{{ $item->id }}">+</button>
                 </div>
 
                 <div class="subtotal-info">
-                    <span class="subtotal-label">Subtotal:</span>
-                    <span class="subtotal-value" id="subtotal-{{ $item->id }}">
-                        Rp. {{ number_format(($item->product->price ?? 0) * $item->quantity) }}
-                    </span>
+                    <span>Subtotal:</span>
+                    <span id="subtotal-{{ $item->id }}">Rp. {{ number_format(($item->product->price ?? 0) * $item->quantity) }}</span>
                 </div>
 
                 <div class="action-buttons">
@@ -285,54 +188,58 @@
             @endforeach
         </div>
 
-        {{-- Form Checkout (HANYA di bawah) --}}
         <div class="checkout-container">
             <form method="POST" action="{{ route('user.checkout') }}" id="checkout-form">
                 @csrf
                 <button type="submit" class="btn btn-success" id="checkout-button" disabled>Checkout</button>
             </form>
         </div>
-
-        <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const checkboxes = document.querySelectorAll('.product-checkbox');
-            const checkoutButton = document.getElementById('checkout-button');
-
-            function updateCheckoutButton() {
-                let anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
-                checkoutButton.disabled = !anyChecked;
-            }
-
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', updateCheckoutButton);
-            });
-
-            updateCheckoutButton();
-
-            const updateQuantityAndSubtotal = (id, change) => {
-                const quantityInput = document.querySelector(`.quantity-input[data-id="${id}"]`);
-                const price = parseInt(document.querySelector(`input[name="selected_products[]"][value="${id}"]`)
-                                    .closest('.cart-item')
-                                    .querySelector('.price-value').innerText.replace(/[^\d]/g, ''));
-
-                let quantity = parseInt(quantityInput.value) + change;
-                if (quantity < 1) quantity = 1;
-
-                quantityInput.value = quantity;
-
-                const subtotalElement = document.getElementById(`subtotal-${id}`);
-                subtotalElement.innerText = "Rp. " + (price * quantity).toLocaleString('id-ID');
-            };
-
-            document.querySelectorAll('.btn-increase').forEach(btn => {
-                btn.addEventListener('click', () => updateQuantityAndSubtotal(btn.dataset.id, 1));
-            });
-
-            document.querySelectorAll('.btn-decrease').forEach(btn => {
-                btn.addEventListener('click', () => updateQuantityAndSubtotal(btn.dataset.id, -1));
-            });
-        });
-        </script>
     @endif
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const checkboxes = document.querySelectorAll('.product-checkbox');
+    const checkoutBtn = document.getElementById('checkout-button');
+
+    function updateCheckoutBtn() {
+        checkoutBtn.disabled = !Array.from(checkboxes).some(cb => cb.checked);
+    }
+
+    checkboxes.forEach(cb => cb.addEventListener('change', updateCheckoutBtn));
+    updateCheckoutBtn();
+
+    const updateQuantityUI = (id, change) => {
+        const input = document.querySelector(`.quantity-input[data-id="${id}"]`);
+        const priceText = document.querySelector(`.product-checkbox[value="${id}"]`)
+                            .closest('.cart-item')
+                            .querySelector('.price-value').innerText;
+        const price = parseInt(priceText.replace(/[^\d]/g, ''));
+        const maxStock = parseInt(input.dataset.stock);
+
+        let quantity = parseInt(input.value) + change;
+        quantity = Math.max(1, Math.min(quantity, maxStock));
+        input.value = quantity;
+
+        document.getElementById(`subtotal-${id}`).innerText = "Rp. " + (price * quantity).toLocaleString('id-ID');
+
+        const btnInc = document.querySelector(`.btn-increase[data-id="${id}"]`);
+        const btnDec = document.querySelector(`.btn-decrease[data-id="${id}"]`);
+        btnInc.disabled = quantity >= maxStock;
+        btnDec.disabled = quantity <= 1;
+    };
+
+    document.querySelectorAll('.btn-increase').forEach(btn => {
+        btn.addEventListener('click', () => updateQuantityUI(btn.dataset.id, 1));
+    });
+
+    document.querySelectorAll('.btn-decrease').forEach(btn => {
+        btn.addEventListener('click', () => updateQuantityUI(btn.dataset.id, -1));
+    });
+
+    document.querySelectorAll('.quantity-input').forEach(input => {
+        updateQuantityUI(input.dataset.id, 0);
+    });
+});
+</script>
 @endsection
