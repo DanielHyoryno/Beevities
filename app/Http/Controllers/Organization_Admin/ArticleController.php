@@ -29,25 +29,27 @@ class ArticleController extends Controller
             'description' => 'required|string',
             'image' => 'nullable|image|max:2048'
         ]);
-    
-        $imageData = $request->except(['image']);
-    
+
+        $imageData = null;
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $mime = $file->getMimeType();
             $base64 = base64_encode(file_get_contents($file));
-            $imageData = "data:$mime;base64,$base64"; // simpan ke variabel yang benar
+            $imageData = "data:$mime;base64,$base64";
         }
-    
+
         Article::create([
             'organization_id' => Auth::user()->organization_id,
             'title' => $request->title,
             'description' => $request->description,
             'image' => $imageData,
         ]);
-    
-        return redirect()->route('organization_admin.articles.index')->with('success', 'Artikel berhasil ditambahkan.');
+
+        return redirect()->route('organization_admin.articles.index')
+            ->with('success', 'Artikel berhasil ditambahkan.');
     }
+
     
 
     public function edit($id)
