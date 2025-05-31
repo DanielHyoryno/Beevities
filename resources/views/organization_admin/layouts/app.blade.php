@@ -10,7 +10,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
+    @yield('styles')
+
     <style>
+
         body {
             background: linear-gradient(to right, #0a192f, #1c2c44);
             color: white;
