@@ -136,6 +136,7 @@
                 </div>
             </nav>
         </header>
+        
         <div class="pt-5">
             @yield('content')
         </div>

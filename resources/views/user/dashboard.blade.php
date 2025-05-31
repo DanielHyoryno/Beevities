@@ -2,6 +2,7 @@
 
 @section('title', 'Dashboard User')
 
+
 @section('content')
     <div class="tailwind-wrapper">
         <div id="dashboard-root"></div>
