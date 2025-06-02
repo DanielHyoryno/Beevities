@@ -176,7 +176,28 @@
     <div class="merch-group">
         <div class="merch-label-box">Featured Products from {{ $organization->name }}</div>
         <div class="merch-row">
-    @foreach ($organization->products as $product)
+    @foreach ($organization->products->take(4) as $product)
+        <div class="card">
+            <img src="{{ $product->image ? asset($product->image) : asset('placeholder.png') }}" class="card-img-top" alt="{{ $product->name }}">
+            <div class="card-body">
+                <h6 class="card-title">{{ $product->name }}</h6>
+                <p class="card-text">Rp. {{ number_format($product->price) }}</p>
+                <p class="card-text">Stock: {{ number_format($product->stock) }}</p>
+                <form method="POST" action="{{ route('user.cart.add', $product->id) }}">
+                    @csrf
+                    <input type="number" name="quantity" class="form-control" min="1" max="{{ $product->stock }}" value="1" required>
+                    <button type="submit" class="btn-action mt-2">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    @endforeach
+        </div>
+    </div>
+
+
+    <div class="merch-group">
+        <div class="merch-row">
+    @foreach ($organization->products->skip(4) as $product)
         <div class="card">
             <img src="{{ $product->image ? asset($product->image) : asset('placeholder.png') }}" class="card-img-top" alt="{{ $product->name }}">
             <div class="card-body">
