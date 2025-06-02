@@ -3,14 +3,9 @@
 
 @section('styles')
 <style>
-    .container {
-        padding-left: 2rem;
-        padding-right: 2rem;
-    }
 
     .banner-wrapper {
         background-color: #fff;
-        border-radius: 20px;
         padding: 0px;
         box-shadow: 0 9px 12px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease;
@@ -20,7 +15,6 @@
         width: 100%;
         height: 56.25vh;
         object-fit: cover;
-        border-radius: 16px;
     }
 
     .section-title {
@@ -129,11 +123,13 @@
 @endsection
 
 @section('content')
-<div class="container mt-4">
+
     <!-- Banner -->
     <div class="banner-wrapper">
         <img src="{{ $organization->banner_image ?? asset('placeholder.png') }}" alt="Banner">
     </div>
+
+<div class="container mt-4">
 
     <!-- Info -->
     <h1 class="mt-4 mb-2">{{ $organization->name }}</h1>
@@ -198,9 +194,8 @@
         </div>
     </div>
 
-    <!-- Remaining rows -->
     <div class="merch-row">
-        @foreach ($organization->products->skip(2) as $product)
+        @foreach ($organization->products as $product)
             <div class="card">
                 <img src="{{ $product->image ?? asset('placeholder.png') }}" class="card-img-top" alt="{{ $product->name }}">
                 <div class="card-body">
