@@ -63,7 +63,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="postal_code" class="form-label fw-semibold">Postal Code</label>
-                            <input type="text" name="postal_code" class="form-control" placeholder="123456" required>
+                            <input type="text" name="postal_code" class="form-control" placeholder="12345" required>
                             @error('postal_code')
                             <div class="invalid-feedback">
                                 {{ $message }}
