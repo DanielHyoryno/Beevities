@@ -126,7 +126,7 @@
 
     <!-- Banner -->
     <div class="banner-wrapper">
-        <img src="{{ $organization->banner_image ?? asset('placeholder.png') }}" alt="Banner">
+        <img src="{{ $organization->banner_image ? asset($organization->banner_image) : asset('placeholder.png') }}" alt="Banner">
     </div>
 
 <div class="container mt-4">
@@ -141,7 +141,7 @@
         @foreach ($organization->events as $event)
             <div class="col">
                 <div class="card">
-                    <img src="{{ $event->image ?? asset('placeholder.png') }}" class="card-img-top" alt="{{ $event->title }}">
+                    <img src="{{ $event->image ? asset($event->image) : asset('placeholder.png') }}" class="card-img-top" alt="{{ $event->title }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $event->title }}</h5>
                         <p class="card-text">{{ Str::limit($event->description, 80) }}</p>
@@ -158,7 +158,7 @@
         @foreach ($organization->articles as $article)
             <div class="col">
                 <div class="card">
-                    <img src="{{ $article->image ?? asset('placeholder.png') }}" class="card-img-top" alt="{{ $article->title }}">
+                    <img src="{{ $article->image ? asset($article->image) : asset('placeholder.png') }}" class="card-img-top" alt="{{ $article->title }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $article->title }}</h5>
                         <p class="card-text">{{ Str::limit($article->description, 80) }}</p>
@@ -176,40 +176,22 @@
     <div class="merch-group">
         <div class="merch-label-box">Featured Products from {{ $organization->name }}</div>
         <div class="merch-row">
-            @foreach ($organization->products->take(2) as $product)
-                <div class="card">
-                    <img src="{{ $product->image ?? asset('placeholder.png') }}" class="card-img-top" alt="{{ $product->name }}">
-                    <div class="card-body">
-                        <h6 class="card-title">{{ $product->name }}</h6>
-                        <p class="card-text">Rp. {{ number_format($product->price) }}</p>
-                        <p class="card-text">Stock: {{ number_format($product->stock) }}</p>
-                        <form method="POST" action="{{ route('user.cart.add', $product->id) }}">
-                            @csrf
-                            <input type="number" name="quantity" class="form-control" min="1" max="{{ $product->stock }}" value="1" required>
-                            <button type="submit" class="btn-action mt-2">Add to Cart</button>
-                        </form>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
-
-    <div class="merch-row">
-        @foreach ($organization->products as $product)
-            <div class="card">
-                <img src="{{ $product->image ?? asset('placeholder.png') }}" class="card-img-top" alt="{{ $product->name }}">
-                <div class="card-body">
-                    <h6 class="card-title">{{ $product->name }}</h6>
-                    <p class="card-text">Rp. {{ number_format($product->price) }}</p>
-                    <p class="card-text">Stock: {{ number_format($product->stock) }}</p>
-                    <form method="POST" action="{{ route('user.cart.add', $product->id) }}">
-                        @csrf
-                        <input type="number" name="quantity" class="form-control" min="1" max="{{ $product->stock }}" value="1" required>
-                        <button type="submit" class="btn-action mt-2">Add to Cart</button>
-                    </form>
-                </div>
+    @foreach ($organization->products as $product)
+        <div class="card">
+            <img src="{{ $product->image ? asset($product->image) : asset('placeholder.png') }}" class="card-img-top" alt="{{ $product->name }}">
+            <div class="card-body">
+                <h6 class="card-title">{{ $product->name }}</h6>
+                <p class="card-text">Rp. {{ number_format($product->price) }}</p>
+                <p class="card-text">Stock: {{ number_format($product->stock) }}</p>
+                <form method="POST" action="{{ route('user.cart.add', $product->id) }}">
+                    @csrf
+                    <input type="number" name="quantity" class="form-control" min="1" max="{{ $product->stock }}" value="1" required>
+                    <button type="submit" class="btn-action mt-2">Add to Cart</button>
+                </form>
             </div>
-        @endforeach
+        </div>
+    @endforeach
+        </div>
     </div>
 </div>
 @endsection
