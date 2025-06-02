@@ -45,7 +45,7 @@
             }
 
             #navbarNav {
-                padding-left: 26rem;
+                padding-left: 22rem;
             }
 
             #log-out {
@@ -88,7 +88,7 @@
         <header>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container">
-                    <a class="navbar-brand" href="{{ route('user.dashboard') }}">Beevities</a>
+                    <a class="fw-bold fs-4 text-primary text-decoration-none" href="{{ route('user.dashboard') }}">Beevities</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
