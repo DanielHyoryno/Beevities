@@ -143,7 +143,7 @@
                     <input type="checkbox" class="product-checkbox" name="selected_products[]" form="checkout-form" value="{{ $item->id }}">
 
                     @if($item->product && $item->product->image)
-                        <img src="{{ $item->product->image }}" class="cart-item-image">
+                        <img src="{{ resolveImage($item->product->image) }}" class="cart-item-image">
                     @else
                         <div class="cart-item-image" style="background: #eee; display: flex; align-items: center; justify-content: center;">
                             <span style="font-size: 12px;">No Image</span>

@@ -11,7 +11,7 @@
         </p>
 
         {{-- Gambar Event --}}
-        <img src="{{ $event->image ?? asset('placeholder.png') }}"
+        <img src="{{ resolveImage($event->image) }}"
              class="w-100 rounded mb-4"
              style="max-height: 350px; object-fit: cover;"
              alt="{{ $event->title }}">

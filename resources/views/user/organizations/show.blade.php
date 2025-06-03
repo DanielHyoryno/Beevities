@@ -126,7 +126,7 @@
 
     <!-- Banner -->
     <div class="banner-wrapper">
-        <img src="{{ $organization->banner_image ? asset($organization->banner_image) : asset('placeholder.png') }}" alt="Banner">
+        <img src="{{ ResolveImage($organization->banner_image) }}" alt="Banner">
     </div>
 
 <div class="container mt-4">
@@ -141,7 +141,7 @@
         @foreach ($organization->events as $event)
             <div class="col">
                 <div class="card">
-                    <img src="{{ $event->image ? asset($event->image) : asset('placeholder.png') }}" class="card-img-top" alt="{{ $event->title }}">
+                    <img src="{{ ResolveImage($event->image) }}" class="card-img-top" alt="{{ $event->title }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $event->title }}</h5>
                         <p class="card-text">{{ Str::limit($event->description, 80) }}</p>
@@ -158,7 +158,7 @@
         @foreach ($organization->articles as $article)
             <div class="col">
                 <div class="card">
-                    <img src="{{ $article->image ? asset($article->image) : asset('placeholder.png') }}" class="card-img-top" alt="{{ $article->title }}">
+                    <img src="{{ ResolveImage($article->image) }}" class="card-img-top" alt="{{ $article->title }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $article->title }}</h5>
                         <p class="card-text">{{ Str::limit($article->description, 80) }}</p>
@@ -178,7 +178,7 @@
         <div class="merch-row">
     @foreach ($organization->products->take(4) as $product)
         <div class="card">
-            <img src="{{ $product->image ? asset($product->image) : asset('placeholder.png') }}" class="card-img-top" alt="{{ $product->name }}">
+            <img src="{{ ResolveImage($product->image) }}" class="card-img-top" alt="{{ $product->name }}">
             <div class="card-body">
                 <h6 class="card-title">{{ $product->name }}</h6>
                 <p class="card-text">Rp. {{ number_format($product->price) }}</p>
@@ -199,7 +199,7 @@
         <div class="merch-row">
     @foreach ($organization->products->skip(4) as $product)
         <div class="card">
-            <img src="{{ $product->image ? asset($product->image) : asset('placeholder.png') }}" class="card-img-top" alt="{{ $product->name }}">
+            <img src="{{ ResolveImage($product->image) }}" class="card-img-top" alt="{{ $product->name }}">
             <div class="card-body">
                 <h6 class="card-title">{{ $product->name }}</h6>
                 <p class="card-text">Rp. {{ number_format($product->price) }}</p>
