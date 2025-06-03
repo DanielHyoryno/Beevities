@@ -227,6 +227,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnDec = document.querySelector(`.btn-decrease[data-id="${id}"]`);
         btnInc.disabled = quantity >= maxStock;
         btnDec.disabled = quantity <= 1;
+
+        fetch(`/user/cart/update/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ quantity })
+        });
+
     };
 
     document.querySelectorAll('.btn-increase').forEach(btn => {

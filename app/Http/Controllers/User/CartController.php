@@ -62,6 +62,15 @@ class CartController extends Controller
         return redirect()->route('user.cart')->with('error', 'Produk tidak ditemukan di keranjang.');
     }
 
+    public function updateQuantity(Request $request, $id)
+    {
+        $cartItem = Cart::findOrFail($id);
+        $quantity = max(1, min($request->quantity, $cartItem->product->stock));
+        $cartItem->quantity = $quantity;
+        $cartItem->save();
+
+        return response()->json(['success' => true]);
+    }
 
 
 
