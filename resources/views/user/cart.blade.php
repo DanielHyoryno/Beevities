@@ -30,6 +30,17 @@
         height: 18px;
         accent-color: #3693f6;
         margin-right: 10px;
+        transition: box-shadow 0.2s ease, background-color 0.2s ease;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        background-color: white;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .product-checkbox:hover {
+        box-shadow: 0 0 0 3px rgba(54, 147, 246, 0.3);
+        background-color: #f0f8ff;
     }
 
     .cart-item-image {
@@ -78,6 +89,13 @@
         cursor: pointer;
         font-weight: bold;
         border-radius: 5px;
+        color: #333;
+        transition: color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .btn-quantity:hover {
+        color: #3693f6;
+        background-color: #e6e6e6;
     }
 
     .btn-quantity:disabled {
@@ -100,6 +118,14 @@
     .trash-icon {
         width: 20px;
         height: 20px;
+        transition: filter 0.2s ease, opacity 0.2s ease;
+        filter: grayscale(0%);
+        opacity: 1;
+    }
+
+    .btn-trash:hover .trash-icon {
+        filter: grayscale(100%);
+        opacity: 0.6;
     }
 
     .checkout-container {

@@ -75,6 +75,12 @@
         font-weight: 600;
         text-decoration: none;
         margin-top: 0.5rem;
+        transition: background-color 0.2s ease;
+        border: none;
+    }
+
+    .btn-action:hover {
+        background-color: #1e40af;
     }
 
     .merch-group {
