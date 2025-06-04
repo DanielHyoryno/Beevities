@@ -25,15 +25,18 @@ class CheckoutController extends Controller
         if ($cartItems->isEmpty()){
             return redirect()->route('user.cart')->with('error', 'Keranjang kosong atau data tidak valid.');
         }
-    
-        $checkoutItems =$cartItems->map(function($item){
-            return[
+        
+        $checkoutItems = $cartItems->map(function ($item) {
+            return [
                 'id' => $item->id,
                 'name' => $item->product->name ?? 'Produk tidak ditemukan',
                 'price' => $item->product->price ?? 0,
                 'quantity' => $item->quantity,
+                'image' => $item->product->image ?? null,
+                'image_url' => resolveImage($item->product->image ?? null), // 🔥 tambahkan ini
             ];
         });
+
     
         $totalPrice = $checkoutItems->sum(function ($item){
             return $item['price'] * $item['quantity'];
@@ -126,5 +129,7 @@ class CheckoutController extends Controller
             ->get();
         return view('user.history', compact('invoices'));
     }
+
+    
 
 }
